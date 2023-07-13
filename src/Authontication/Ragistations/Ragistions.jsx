@@ -7,8 +7,9 @@ import { useContext, useState } from 'react';
 import { AuthContext } from "../../Component/Authprovider/Authprovider";
 import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
-      const [loading, setLoading] = useState(false)
-      const [upload, setUpload] = useState(false)
+     const [loading, setLoading] = useState(false)
+     const [upload, setUpload] = useState(false)
+     const [imgloading, setImageLoading] = useState(false)
      const [image, setImage] = useState("");
      const navigate = useNavigate();
      const { createUser, updateUserProfile, verifyUser } = useContext(AuthContext);
@@ -48,6 +49,7 @@ const Register = () => {
 
      const handleimage = (event) => {
           const selectedImage = event.target.files[0];
+          setImageLoading(true)
           const Imagebb_URL = `https://api.imgbb.com/1/upload?key=a51250151cc877a01d697ac0a493b3bd`
           const formData = new FormData();
           formData.append('image', selectedImage);
@@ -58,6 +60,7 @@ const Register = () => {
                if (data?.data?.display_url) {
                     setUpload(true)
                     setImage(data?.data?.display_url)
+                    setImageLoading(false)
                }
           })
      }
@@ -101,19 +104,24 @@ const Register = () => {
                                                        </div>
 
                                                        <div className=" flex justify-center items-center">
+
                                                             {
-                                                                 upload == true ? <><img className=" mt-4 h-[200px] w-[200px] rounded-full   border border-blue-500" src={image} alt="" /> </> :
-                                                                      <div>
-                                                                           <div>
-                                                                                <label htmlFor="profile"> Profile upload</label>
-                                                                           </div>
-                                                                           <label htmlFor="file-upload" >
-                                                                                <div className=' p-4  cursor-pointer md:p-7'>
-                                                                                     <CgProfile className='  text-blue-600' size={40}></CgProfile>
+                                                                 imgloading == true ? <p className=" text-xl font-semibold text-blue-500"> Please waiting..  </p> : <div>
+                                                                      {
+                                                                           upload == true ? <><img className=" mt-4 h-[200px] w-[200px] rounded-full   border border-blue-500" src={image} alt="" /> </> :
+                                                                                <div>
+                                                                                     <div>
+                                                                                          <label htmlFor="profile"> Profile upload</label>
+                                                                                     </div>
+                                                                                     <label htmlFor="file-upload" >
+                                                                                          <div className=' p-4  cursor-pointer md:p-7'>
+                                                                                               <CgProfile className='  text-blue-600' size={40}></CgProfile>
+                                                                                          </div>
+                                                                                          <input onChange={handleimage} accept="image/*" type="file" name="" id="file-upload" className=' hidden' />
+                                                                                     </label>
                                                                                 </div>
-                                                                                <input onChange={handleimage} accept="image/*" type="file" name="" id="file-upload" className=' hidden' />
-                                                                           </label>
-                                                                      </div>
+                                                                      }
+                                                                 </div>
                                                             }
 
 

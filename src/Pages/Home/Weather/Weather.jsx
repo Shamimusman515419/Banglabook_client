@@ -28,7 +28,7 @@ const Weather = () => {
           }
      }, [city]);
 
-     console.log(weatherData);
+
 
      return (
           <div className="container mx-auto p-4 bg-[#11A1E6] text-white">

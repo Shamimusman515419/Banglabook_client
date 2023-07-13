@@ -44,8 +44,8 @@ export default function CreatePost() {
           })
      };
      const handleSubmit = () => {
-          const PostData = { image, video: input, PostItem: selectedValue, name: user?.displayName, userImage: user?.photoURL, like: 0, date: new Date(), description: text, activity: "happy" };
-          console.log(PostData);
+          const PostData = { image, video: input, PostItem: selectedValue, comment:[], name: user?.displayName, userImage: user?.photoURL, like: 0, date: new Date(), likeEmail:[], description: text, activity: "happy" };
+          
           axiosSecure.post('/post', PostData).then(result => {
                console.log(result.data.insertedId)
                if (result.data.insertedId) {

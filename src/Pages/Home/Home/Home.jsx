@@ -18,7 +18,7 @@ const Home = () => {
    const [data, refetch, isLoading] = PostApi();
 
    let PostData = data?.data.sort((a, b) => new Date(b.date) - new Date(a.date));
-
+console.log(PostData);
    return (
 
 

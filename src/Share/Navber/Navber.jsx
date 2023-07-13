@@ -14,7 +14,7 @@ const Navber = () => {
      const { LogOut, user } = useContext(AuthContext);
 
      const hanbleLogout = () => {
-          console.log("shamim");
+         
           LogOut().then(result => {
                toast.success('Successfully Logout!')
 

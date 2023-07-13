@@ -11,7 +11,7 @@ const PrivateRoute = ({children}) => {
 
       useEffect(()=>{
           axiosSecure.get(`/user/${user?.email}`).then(result=>{
-               console.log(result);
+            //    console.log(result);
             }).catch(error=>{
                console.log(error);
             })
