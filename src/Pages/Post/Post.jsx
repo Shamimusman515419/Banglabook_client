@@ -185,7 +185,7 @@ const Post = ({ post }) => {
                     <p className=" text-black text-base font-medium">{description} </p>
 
                     {
-                         post?.video ? <video ref={videoRef} controls={isPlaying} muted loop ref={videoRef} controls={isPlaying} >   <source src={post?.video} type="video/mp4"></source> </video> : <img className=" w-full max-h-[400px] my-2" src={post?.image} alt="" />
+                         post?.video ? <video ref={videoRef} controls={isPlaying} muted loop ref={videoRef} controls={isPlaying} >   <source src={post?.video} type="video/mp4"></source> </video> : <img className=" w-full max-h-[400px] my-2 object-cover" src={post?.image} alt="" />
                     }
 
                </div>
@@ -201,7 +201,7 @@ const Post = ({ post }) => {
                     </div>
                    
                     <hr className=" my-2 p-2 " />
-                    <div className=" flex   items-center  justify-around gap-5">
+                    <div className=" flex   items-center  justify-around gap-2">
                          <button disabled={Email}  onClick={() => handleLike(_id)} className="  hover:bg-[#bbb9b9d4] px-2 py-1 rounded-lg w-full cursor-pointer flex  gap-2 items-center justify-center">
                               {
                                    Email ? <FcLike size={24}></FcLike> : <FaRegHeart size={24}></FaRegHeart>

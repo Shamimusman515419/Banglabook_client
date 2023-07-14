@@ -4,7 +4,7 @@ import {  useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Authprovider/Authprovider';
 
 const axiosSecure = axios.create({
-     baseURL: 'http://localhost:5000',
+     baseURL: 'https://banglabook-server.vercel.app',
 });
 
 const useAxiosSecure = () => {

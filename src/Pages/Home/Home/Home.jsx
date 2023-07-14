@@ -13,6 +13,7 @@ import HappyBirthday from "./HappyBirday/HappyBirday";
 import Gallery from "./Gallary/Gallary";
 import Games from "../Games/Games";
 import Messanger from "../Massanger/Massanger";
+import ChatBox from "../Massanger/ChatBox";
 
 const Home = () => {
    const [data, refetch, isLoading] = PostApi();
@@ -72,6 +73,10 @@ console.log(PostData);
            <div className="  sticky top-16 ">
            <Messanger></Messanger>
            </div>
+         </div>
+
+         <div className=" bottom-2 z-30  fixed md:right-1/4">
+            {/* <ChatBox></ChatBox> */}
          </div>
       </div>
 

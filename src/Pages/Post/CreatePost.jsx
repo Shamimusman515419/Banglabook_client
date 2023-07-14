@@ -44,7 +44,7 @@ export default function CreatePost() {
           })
      };
      const handleSubmit = () => {
-          const PostData = { image, video: input, PostItem: selectedValue, comment:[], name: user?.displayName, userImage: user?.photoURL, like: 0, date: new Date(), likeEmail:[], description: text, activity: "happy" };
+          const PostData = { image, video: input, PostItem: selectedValue, comment:[], name: user?.displayName, userImage: user?.photoURL, like: 0, date: new Date(), likeEmail:[], description: text, activity: "happy" ,email:user?.email};
           
           axiosSecure.post('/post', PostData).then(result => {
                console.log(result.data.insertedId)
@@ -104,14 +104,14 @@ export default function CreatePost() {
      return (
           <>
 
-               <div className=" p-3 shadow-md rounded  bg-white ">
+               <div className=" p-3 postShadwo rounded  bg-white ">
                     <h1 className=" text-2xl font-medium my-2"> Create Post</h1>
                     <div className=" px-3 py-1 flex gap-2 items-center ">
                          <div>
                               <img src={user?.photoURL} className=" h-10 w-10 rounded-full" alt="" />
                          </div>
-                         <div>
-                              <button onClick={() => setShowModal(true)} className=" bg-[#E4E6E8]  rounded-3xl py-1 px-3 "> What's on your mind, {user?.displayName} ?  </button>
+                         <div className=" w-full">
+                              <button onClick={() => setShowModal(true)} className=" w-full bg-[#E4E6E8]  rounded-3xl py-1 px-3 "> What's on your mind, {user?.displayName} ?  </button>
                          </div>
 
                     </div>

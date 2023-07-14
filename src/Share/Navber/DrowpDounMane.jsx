@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const DrowpDounMane = () => {
      return (
-          <div className=" md:hidden p-4 grid grid-cols-3   shadow-sm bg-white z-40 rounded mt-3  w-full items-center     gap-6">
+          <div className=" md:hidden  fixed top-8 p-4 grid grid-cols-3   shadow-sm bg-white z-40 rounded mt-3  w-full items-center     gap-6">
 
                <div className=" text-center">
                     <Link className=" ">

@@ -13,7 +13,7 @@ import {
 const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <div>
+    <div >
     <QueryClientProvider client={queryClient}>
     <AuthProvider>
         <RouterProvider router={Route}> </RouterProvider>

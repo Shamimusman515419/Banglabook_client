@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
 import useAxiosSecure from "../../../Component/AsioxSecures/useAxiosSecure";
 import { AuthContext } from "../../../Component/Authprovider/Authprovider";
-import { Link, Navigate, useLocation } from "react-router-dom";
-
+import { Navigate, useLocation } from "react-router-dom";
+import { ScaleLoader } from 'react-spinners';
 
 const PrivateRoute = ({children}) => {
      const location=useLocation()
@@ -21,7 +21,11 @@ const PrivateRoute = ({children}) => {
       
 
      if(loading){
-          return <p className=" h-[100vh] w-full flex gap-2 items-center justify-center "> Loading... </p>
+          return(
+            <div className=" w-full  h-screen flex justify-center items-center">
+              <ScaleLoader   size={100}  color="#0389C9" /> 
+          </div>
+          )
     }
 
 

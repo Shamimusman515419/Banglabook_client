@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 const SuggestFriend = () => {
      const { data, refetch } = useQuery({
           queryKey: ['users'],
-          queryFn: () => axios.get('http://localhost:5000/users'),
+          queryFn: () => axios.get('https://banglabook-server.vercel.app/users'),
      })
 
      return (

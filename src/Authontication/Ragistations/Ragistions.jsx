@@ -14,6 +14,9 @@ const Register = () => {
      const navigate = useNavigate();
      const { createUser, updateUserProfile, verifyUser } = useContext(AuthContext);
      const { register, handleSubmit, formState: { errors } } = useForm();
+
+     // onSubmit
+
      const onSubmit = data => {
           setLoading(true)
           const name = data.fistName + " " + data.lastName;
@@ -46,7 +49,7 @@ const Register = () => {
           })
 
      }
-
+     // handleimage 
      const handleimage = (event) => {
           const selectedImage = event.target.files[0];
           setImageLoading(true)
@@ -81,9 +84,9 @@ const Register = () => {
                                              <form onSubmit={handleSubmit(onSubmit)}>
                                                   <div className=" p-4 rounded-2xl w-full">
                                                        <div className="form-control mt-2 ">
-                                                            <label htmlFor="fistName" className=" block text-gray-700 text-sm font-bold mb-2">  fistName:</label>
-                                                            <input  {...register("fistName", { required: true })} className="w-full bg-white  text-black px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" type="text" placeholder="  fist Name" name="fistName" id="" />
-                                                            {errors.name && <span className="text-red-500"> fist Name is required</span>}
+                                                            <label htmlFor="fistName" className=" block text-gray-700 text-sm font-bold mb-2">  FirstName:</label>
+                                                            <input  {...register("fistName", { required: true })} className="w-full bg-white  text-black px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" type="text" placeholder="  First Name" name="fistName" id="" />
+                                                            {errors.name && <span className="text-red-500"> First Name is required</span>}
                                                        </div>
                                                        <div className="form-control mt-2 ">
                                                             <label htmlFor="Last Name" className=" block text-gray-700 text-sm font-bold mb-2">  Last Name:</label>

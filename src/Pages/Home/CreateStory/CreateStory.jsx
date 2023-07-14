@@ -9,7 +9,7 @@ const {user}=useContext(AuthContext)
           <><Link  to={'/createStory'}>
                <div className=" cursor-pointer h-60 w-full border-2 rounded-lg relative ">
                     <div className=" relative text-center ">
-                         <img className=" relative w-full  h-44 " src={user?.photoURL
+                         <img className=" relative w-full  h-44 object-cover " src={user?.photoURL
 } alt="" />
 
                          <div className="  flex justify-center items-center ">

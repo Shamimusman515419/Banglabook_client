@@ -9,7 +9,7 @@ const Messanger = () => {
      const {user}=useContext(AuthContext)
      const { data, refetch } = useQuery({
           queryKey: ['users'],
-          queryFn: () => axios.get('http://localhost:5000/users'),
+          queryFn: () => axios.get('https://banglabook-server.vercel.app/users'),
      })
 
      const Friend= data?.data?.filter(item=> item.email !==user?.email);
@@ -40,7 +40,7 @@ const Messanger = () => {
                         <div>
                          { Friend  && Friend.map(item=> <div className=" my-5   cursor-pointer p-2 rounded-lg  hover:bg-[#6a6868ad] " key={item._id} >
                             <div className=" flex gap-2 items-center ">
-                            <img className=" h-10 w-10 rounded-full " src={item?.image} alt="" />
+                            <img className=" h-10 w-10 rounded-full object-cover " src={item?.image} alt="" />
                             <h1 className=" text-xl font-semibold "> {item?.name} </h1>
                             </div>
 
