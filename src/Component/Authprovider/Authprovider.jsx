@@ -5,9 +5,7 @@ import {
      getAuth,
      onAuthStateChanged,
      sendEmailVerification,
-     sendPasswordResetEmail,
      signInWithEmailAndPassword,
-     signInWithPopup,
      signOut,
      updateProfile,
 } from 'firebase/auth'
@@ -28,6 +26,15 @@ const AuthProvider = ({ children }) => {
                photoURL: photo,
           })
      }
+
+     const updateProfilePhoto = (name, photo) => {
+          return updateProfile(auth?.currentUser, {
+               displayName: name,
+               photoURL: photo,
+          })
+     }
+     
+
      const verifyUser = () => {
           return sendEmailVerification(auth.currentUser)
 
@@ -36,25 +43,27 @@ const AuthProvider = ({ children }) => {
      const Login = (email, password) => {
           return signInWithEmailAndPassword(auth, email, password)
      }
-    
+
      const LogOut = () => {
           return signOut(auth)
      }
      useEffect(() => {
           const unsubcript = onAuthStateChanged(auth, currentUser => {
-                setUser(currentUser);
-                if (currentUser?.email) {
+               setUser(currentUser);
+               setLoading(false)
+               if (currentUser?.email) {
                     axios.post('https://banglabook-server.vercel.app/jwt')
-                    .then(data=>{
-                          localStorage.setItem('access-token', data?.data?.token)
-                    }).catch(error=>{
-                          console.log(error);
-                    })
-                    setLoading(false)
+                         .then(data => {
+
+                              localStorage.setItem('access-token', data?.data?.token)
+                         }).catch(error => {
+                              localStorage.removeItem('access-token')
+                         })
+
                } else {
                     localStorage.removeItem('access-token')
                }
-             })
+          })
           return () => {
                unsubcript()
           }
@@ -65,6 +74,7 @@ const AuthProvider = ({ children }) => {
           createUser,
           updateUserProfile,
           verifyUser,
+          updateProfilePhoto,
           Login,
           loading,
           user,

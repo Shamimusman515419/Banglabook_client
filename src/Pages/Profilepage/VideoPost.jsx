@@ -11,18 +11,20 @@ import { BsBookmark, BsEmojiFrown } from 'react-icons/bs';
 import { MdOutlinePhotoCamera } from 'react-icons/md';
 import { AiOutlineSend, AiOutlineGift } from 'react-icons/ai';
 import { FcLike } from 'react-icons/fc';
-import useAxiosSecure from "../../Component/AsioxSecures/useAxiosSecure";
+
 import { useContext, useEffect, useRef, useState } from "react";
 
 import Swal from 'sweetalert2'
 import PostApi from "../../Component/Api/PostApi";
 import { AuthContext } from "../../Component/Authprovider/Authprovider";
-import Comment from "./Comment";
 
-// import 'sweetalert2/src/sweetalert2.scss'
+import useAxiosSecure from "../../Component/AsioxSecures/useAxiosSecure";
+import Comment from "../Post/Comment";
 
-const Post = ({ post,imageData }) => {
-  
+
+
+const VideoPost = ({ post, imageData }) => {
+
      const { user } = useContext(AuthContext);
      const LikeUser = user?.email;
      const [data, refetch, isLoading] = PostApi();
@@ -35,7 +37,7 @@ const Post = ({ post,imageData }) => {
      const [commentOpen, setCommentOpen] = useState(false)
      const update = { like, likeEmail, LikeUser }
 
-   
+
 
 
      // handleLike api 
@@ -141,7 +143,8 @@ const Post = ({ post,imageData }) => {
      const Email = likeEmail.find(email => email == user?.email);
      console.log(like);
      return (
-          <div className={`shadow-md rounded ${open ? " hidden " : "black"}`}>
+          <div> {
+               post?.video ? <div className={`shadow-md rounded ${open ? " hidden " : "black"}`}>
                <div className=" relative p-2 flex   justify-between gap-2">
                     <div>
                          <div className="  flex  items-start  gap-2  justify-start space-y-1">
@@ -194,23 +197,23 @@ const Post = ({ post,imageData }) => {
                <div className=" p-2">
                     <div className="  flex justify-between items-center gap-2">
                          <div>
-                         {like >= 0 ? <div className=" cursor-pointer"> {like} Other </div> : ""}
+                              {like >= 0 ? <div className=" cursor-pointer"> {like} Other </div> : ""}
                          </div>
                          <div>
-                              { comment.length >= 0 ? <div> {comment.length} Other comment </div> : ""}
+                              {comment.length >= 0 ? <div> {comment.length} Other comment </div> : ""}
                          </div>
                     </div>
-                   
+
                     <hr className=" my-2 p-2 " />
                     <div className=" flex   items-center  justify-around gap-2">
-                         <button disabled={Email}  onClick={() => handleLike(_id)} className="  hover:bg-[#bbb9b9d4] px-2 py-1 rounded-lg w-full cursor-pointer flex  gap-2 items-center justify-center">
+                         <button disabled={Email} onClick={() => handleLike(_id)} className="  hover:bg-[#bbb9b9d4] px-2 py-1 rounded-lg w-full cursor-pointer flex  gap-2 items-center justify-center">
                               {
                                    Email ? <FcLike size={24}></FcLike> : <FaRegHeart size={24}></FaRegHeart>
                               }
 
                               <p className=" font-medium text-base"> Love</p>
                          </button>
-                     
+
                          <div onClick={() => setCommentOpen(!commentOpen)} className="  hover:bg-[#bbb9b9d4] px-2 py-1 rounded-lg w-full cursor-pointer flex  gap-2 items-center justify-center">
                               <FaRegCommentDots size={24}></FaRegCommentDots>
                               <p className=" font-medium text-base"> comment</p>
@@ -268,8 +271,14 @@ const Post = ({ post,imageData }) => {
                     }
 
                </div>
+          </div> : ""
+                
+                }
+
+               
           </div>
+
      );
 };
 
-export default Post;
+export default VideoPost;

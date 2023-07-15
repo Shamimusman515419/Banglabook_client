@@ -10,24 +10,22 @@ const Login = () => {
      const { Login } = useContext(AuthContext);
      const navigate = useNavigate();
      const [loading, setLoading] = useState(false)
-     const handleSubmit = (event) => {
-          event.preventDefault();
+     const handleSubmit = (e) => {
+          e.preventDefault();
           setLoading(true)
-          const from = event.target;
+          const from = e.target;
           const email = from.email.value;
           const password = from.password.value;
           console.log(email, password);
-          Login(email, password).then((result) => {
-               console.log(result);
-               if (result) {
-                    setLoading(false)
-                    navigate('/')
-                    toast.success('Successfully Login!')
-               }
-          }).catch((err) => {
-               console.log(err);
-               setLoading(false)
-          });
+          Login(email, password).then((userCredential) => {
+               // Signed in 
+               const user = userCredential.user;
+               navigate('/')
+             })
+             .catch((error) => {
+               const errorCode = error.code;
+               const errorMessage = error.message;
+             });
      }
 
      return (
@@ -38,7 +36,7 @@ const Login = () => {
                               <h2 className="text-center text-2xl font-semibold text-gray-700 mb-6">
                                    Log in to Banglabook
                               </h2>
-                              <form onSubmit={() => handleSubmit(event)}>
+                              <form onSubmit={(e) => handleSubmit(e)}>
                                    <div className="mb-4">
                                         <label
                                              htmlFor="email"

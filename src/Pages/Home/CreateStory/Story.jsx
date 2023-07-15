@@ -1,5 +1,5 @@
 
-import  {  useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -8,18 +8,20 @@ import 'swiper/css/pagination';
 import { FreeMode, Pagination } from 'swiper/modules';
 import StoryCard from './StoryCard';
 import CreateStory from './CreateStory';
+
 const Story = () => {
+ 
   const [Story, setStory] = useState([])
   useEffect(() => {
-   fetch('https://banglabook-server.vercel.app/story').then(res => res.json()).then(data => {
-    const sortedData = data.sort((a, b) => new Date(b.date) -  new Date(a.date));
-    setStory(sortedData);
-   } )
+    fetch('https://banglabook-server.vercel.app/story').then(res => res.json()).then(data => {
+      const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      setStory(sortedData);
+    })
 
   }, []);
 
 
-const breakpoints = {
+  const breakpoints = {
     280: {
       slidesPerView: 3,
       spaceBetween: 7,
@@ -47,9 +49,9 @@ const breakpoints = {
         breakpoints={breakpoints}
         freeMode={true}
         spaceBetween={15}
-          //  pagination={{
-          //    clickable: true,
-          //  }}
+        //  pagination={{
+        //    clickable: true,
+        //  }}
         modules={[FreeMode, Pagination]}
         className="mySwiper"
       >
@@ -59,12 +61,12 @@ const breakpoints = {
         {
           Story && Story?.map((item, index) => <SwiperSlide key={index}>
 
-            <StoryCard Story={item}></StoryCard>
+            <StoryCard  Story={item}></StoryCard>
           </SwiperSlide>)
         }
 
 
-      
+
 
 
       </Swiper>

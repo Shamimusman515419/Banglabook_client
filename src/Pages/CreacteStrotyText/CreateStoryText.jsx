@@ -12,7 +12,7 @@ const CreateStoryText = () => {
      const [selectedImage, setSelectedImage] = useState(null);
       const {user}=useContext(AuthContext)
      const navigate = useNavigate();
-     // const image1 = "https://img.freepik.com/free-photo/full-length-portrait-happy-playful-woman-summer-wear-straw-hat-pointing-with-finger-upward_171337-9947.jpg?w=740&t=st=1688648873~exp=1688649473~hmac=c477eac2482e9c048562e59f3b545e12011c611ffb6f4f21e10509df82d53a2a"
+    
      const handleImageUpload = async () => {
           if (!selectedImage) {
                console.log('No image selected.');
@@ -32,7 +32,7 @@ const CreateStoryText = () => {
                     console.log(data.data.display_url);
                     const image = data?.data?.display_url
                     const date = new Date();
-                    const newData = { storyImage: image, date, img:user?.photoURL, email:user?.email }
+                    const newData = { storyImage: image, date, img:user?.photoURL,name:user?.displayName,email:user?.email }
                   
                     fetch('https://banglabook-server.vercel.app/story', {
                          method: "POST",

@@ -22,7 +22,7 @@ const Footer = () => {
 
                               </div>
                               <div className="bg-[#1590CB]  rounded  p-2  ">
-                                   <Link className=" ">
+                                   <Link to="/friends/yourFriends">
                                         <AiOutlineUsergroupAdd className="iconSize   "></AiOutlineUsergroupAdd>
                                    </Link>
 
@@ -39,7 +39,7 @@ const Footer = () => {
                               </div>
                              
                               <div className="bg-[#1590CB]  rounded p-2 ">
-                                   <Link>
+                                   <Link to="/weather">
                                         <TiWeatherPartlySunny className="iconSize"></TiWeatherPartlySunny>
                                    </Link>
                               </div>

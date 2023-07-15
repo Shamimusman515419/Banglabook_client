@@ -35,7 +35,7 @@ const Main = () => {
 
                                              </div>
                                              <div className="bg-[#1590CB]  rounded  p-4  ">
-                                                  <Link className=" ">
+                                                  <Link to={'/friends/yourFriends'}>
                                                        <AiOutlineUsergroupAdd className="iconSize   "></AiOutlineUsergroupAdd>
                                                   </Link>
 
@@ -56,7 +56,7 @@ const Main = () => {
                                                   </Link>
                                              </div>
                                              <div className="bg-[#1590CB]  rounded p-4 ">
-                                                  <Link>
+                                                  <Link to="/weather">
                                                        <TiWeatherPartlySunny className="iconSize"></TiWeatherPartlySunny>
                                                   </Link>
                                              </div>

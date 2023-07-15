@@ -36,13 +36,14 @@ const Navber = () => {
                                    <NavLink className={" text-base md:text-4xl font-bold "}> Banglabook</NavLink>
                                    <div className=' flex items-center justify-center gap-5  bg-[#038ac9c8] shadow px-3 py-2  rounded'>
                                         <AiOutlineSearch className='  hidden md:block   iconSize'></AiOutlineSearch>
+                                        
                                         <input className='  w-20 md:w-full  outline-none border-none text-xs font-normal bg-transparent' type="text" placeholder=' Friends  ' />
                                         <AiOutlineClose className='  hidden md:hidden  iconSize'></AiOutlineClose>
                                    </div>
-                                   <div className='hidden md:block '>
+                                  <div className='hidden md:block '>
                                         <div className='  flex gap-10  '>
                                              <AiOutlineHome className='iconSize hidden md:block '></AiOutlineHome>
-                                             <AiOutlineUserAdd className='iconSize hidden md:block '></AiOutlineUserAdd>
+                                             <Link to={'/friends/yourFriends'}>  <AiOutlineUserAdd  className='iconSize hidden md:block '></AiOutlineUserAdd></Link>
                                         </div>
                                    </div>
                               </div>
@@ -57,7 +58,7 @@ const Navber = () => {
 
                                    </div>
                                    {/* Profile photo  */}
-                                   <div onClick={()=>setProfileOpen(!ProfileOpen)} className=' cursor-pointer hidden md:block '>
+                                   <div onClick={() => setProfileOpen(!ProfileOpen)} className=' cursor-pointer hidden md:block '>
                                         <div className='   relative flex gap-2 items-center '>
                                              <img className=' relative h-10 w-10 rounded-full object-cover' src={user?.photoURL} alt="" />
 
@@ -67,41 +68,41 @@ const Navber = () => {
                                                   <h1 className='relative  text-base'>{user?.displayName}</h1>
                                                   <span className=' absolute -bottom-3 text-xs mt-4'> Active now</span>
                                              </div>
-                                             
+
                                         </div>
                                    </div>
-                    
-                         {
-                               ProfileOpen  ?  <div className=' bg-white text-black p-4 rounded-md shadow-lg  fixed top-14 w-[300px]'>
-                               <div>
-                                    <Link to={'/profile'} className='  cursor-pointer hover:bg-[#E4E6E8] p-2  rounded-lg  relative flex gap-2 items-center '>
-                                         <img className=' relative h-10 w-10 rounded-full object-cover' src={user?.photoURL} alt="" />
-                                         <div className=' relative  space-y-0'>
-                                              <h1 className='relative text-black  text-base'>{user?.displayName}</h1>
 
-                                         </div>
+                                   {
+                                        ProfileOpen ? <div className=' bg-white text-black p-4 rounded-md shadow-lg  fixed top-14 w-[300px]'>
+                                             <div>
+                                                  <Link onClick={() => setProfileOpen(false)} to={'/profile/post'} className='  cursor-pointer hover:bg-[#E4E6E8] p-2  rounded-lg  relative flex gap-2 items-center '>
+                                                       <img className=' relative h-10 w-10 rounded-full object-cover' src={user?.photoURL} alt="" />
+                                                       <div className=' relative  space-y-0'>
+                                                            <h1 className='relative text-black  text-base'>{user?.displayName}</h1>
 
-                                    </Link>
-                                    <hr />
-                                    <div>
-                                         <Link className=' my-2 cursor-pointer hover:bg-[#E4E6E8] p-2  rounded-lg  flex items-center justify-start gap-3 '>
-                                              <AiOutlineSetting size={24}></AiOutlineSetting>
-                                              <p className=' text-xl font-semibold'> Setting</p>
-                                         </Link>
-                                         <Link  className=' cursor-pointer hover:bg-[#E4E6E8] p-2  rounded-lg  my-2 flex items-center justify-start gap-3 '>
-                                              <BiHelpCircle size={24}></BiHelpCircle>
-                                              <p className=' text-xl font-semibold'> help</p>
-                                         </Link>
-                                         <div onClick={hanbleLogout}  className=' cursor-pointer hover:bg-[#E4E6E8] p-2  rounded-lg   my-2 flex items-center justify-start gap-3 '>
-                                              <AiOutlineLogout size={24}></AiOutlineLogout>
-                                              <p className=' text-xl font-semibold'> Logout</p>
-                                         </div>
-                                    </div>
-                               </div>
-                          </div> : ""
-                         }
-                       
-                                   
+                                                       </div>
+
+                                                  </Link>
+                                                  <hr />
+                                                  <div>
+                                                       <Link onClick={() => setProfileOpen(false)} className=' my-2 cursor-pointer hover:bg-[#E4E6E8] p-2  rounded-lg  flex items-center justify-start gap-3 '>
+                                                            <AiOutlineSetting size={24}></AiOutlineSetting>
+                                                            <p className=' text-xl font-semibold'> Setting</p>
+                                                       </Link>
+                                                       <Link onClick={() => setProfileOpen(false)} className=' cursor-pointer hover:bg-[#E4E6E8] p-2  rounded-lg  my-2 flex items-center justify-start gap-3 '>
+                                                            <BiHelpCircle size={24}></BiHelpCircle>
+                                                            <p className=' text-xl font-semibold'> help</p>
+                                                       </Link>
+                                                       <div onClick={hanbleLogout} className=' cursor-pointer hover:bg-[#E4E6E8] p-2  rounded-lg   my-2 flex items-center justify-start gap-3 '>
+                                                            <AiOutlineLogout size={24}></AiOutlineLogout>
+                                                            <p className=' text-xl font-semibold'> Logout</p>
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                        </div> : ""
+                                   }
+
+
                               </div>
                          </div>
 
@@ -114,7 +115,7 @@ const Navber = () => {
 
                <div className='   pt-10'>
                     {
-                         Open && <DrowpDounMane></DrowpDounMane>
+                         Open && <DrowpDounMane setOpen={setOpen} hanbleLogout={hanbleLogout}></DrowpDounMane>
                     }
                </div>
           </>
