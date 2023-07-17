@@ -23,13 +23,30 @@ import 'swiper/css/navigation';
 
 // import required modules
 import { Navigation } from 'swiper/modules';
+import ChatBox from "../Massanger/ChatBox";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../Component/AsioxSecures/useAxiosSecure";
 const Home = () => {
+   const [openMessanger, setOpenmessanger] = useState(false);
+   const [axiosSecure] = useAxiosSecure();
+   const [currentUser, setCurrentUser] = useState("")
    const [data, refetch, isLoading] = PostApi();
- const [story, setStory] = useState([]);
-   let PostData = data?.data.sort((a, b) => new Date(b.date) - new Date(a.date));
-   console.log(PostData);
 
- 
+   const [story, setStory] = useState([]);
+   let PostData = data?.data.sort((a, b) => new Date(b.date) - new Date(a.date));
+   const handleMessage = (eamil) => {
+      console.log(eamil);
+      axiosSecure.get(`/user/${eamil}`).then(result => {
+         setCurrentUser(result.data)
+         setOpenmessanger(true)
+      }).catch(error => {
+         console.log(error);
+      })
+
+   }
+
+
    return (
 
       <>
@@ -77,19 +94,23 @@ const Home = () => {
                   </div>
                </div>
 
- 
+
             </div>
             <div className=" hidden lg:block lg:col-span-2">
                <div className="  sticky top-16 ">
-                  <Messanger></Messanger>
+                  <Messanger handleMessage={handleMessage}></Messanger>
                </div>
             </div>
-
-            <div className=" bottom-2 z-30  fixed md:right-1/4">
-               {/* <ChatBox></ChatBox> */}
+            <div>
+               {
+                  openMessanger ? <div className=" bottom-2 z-50  fixed flex justify-center items-center mx-auto md:right-1/4">
+                     <ChatBox currentUser={currentUser} setOpenmessanger={setOpenmessanger}></ChatBox>
+                  </div> : ''
+               }
             </div>
+
          </div>
-         
+
       </>
    );
 };

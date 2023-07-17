@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AiOutlineLogout, AiOutlineStar, AiOutlineUserAdd } from "react-icons/ai";
 import { BsFillCalendarEventFill } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa";
-import { ImMusic } from "react-icons/im";
+import { LuVideo } from "react-icons/lu";
 import { IoLogoGameControllerA } from "react-icons/io";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { Link } from "react-router-dom";
@@ -21,10 +21,10 @@ const DrowpDounMane = ({ setOpen,hanbleLogout }) => {
                     </Link>
                </div>
                <div className=" text-center">
-                    <Link className=" ">
-                         <ImMusic className="iconSize mx-auto  text-[#0697d0fa]  "></ImMusic>
+                    <Link  to={'/video'}>
+                         <LuVideo className="iconSize mx-auto  text-[#0697d0fa]  "></LuVideo>
                     </Link>
-                    <h1> Music</h1>
+                    <h1> Video</h1>
                </div>
                <div className=" text-center">
                     <Link to="/friends">
@@ -33,7 +33,7 @@ const DrowpDounMane = ({ setOpen,hanbleLogout }) => {
                     <h1> Group</h1>
                </div>
                <div className=" text-center">
-                    <Link className=" ">
+                    <Link to={'/messenger'}>
                          <FaRegComment className="iconSize mx-auto  text-[#0697d0fa]"></FaRegComment>
                     </Link>
                     <h1> Comment</h1>

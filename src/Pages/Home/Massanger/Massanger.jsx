@@ -5,7 +5,7 @@ import { AiOutlineSearch, AiOutlineSetting } from "react-icons/ai";
 import { AuthContext } from "../../../Component/Authprovider/Authprovider";
 
 
-const Messanger = () => {
+const Messanger = ({handleMessage}) => {
      const {user}=useContext(AuthContext)
      const { data, refetch } = useQuery({
           queryKey: ['users'],
@@ -13,7 +13,7 @@ const Messanger = () => {
      })
 
      const Friend= data?.data?.filter(item=> item.email !==user?.email);
-     
+  
      return (
           <div>
                <div className=" shadow-xl rounded-xl  p-3 ">
@@ -38,7 +38,7 @@ const Messanger = () => {
                     <div className=" scrollbar-hidden h-[80vh] ">
                      <h1 className=" text-xl font-semibold my-2"> Friend </h1>
                         <div>
-                         { Friend  && Friend.map(item=> <div className=" my-5   cursor-pointer p-2 rounded-lg  hover:bg-[#6a6868ad] " key={item._id} >
+                         { Friend  && Friend.map(item=> <div onClick={()=>handleMessage(item?.email)} className=" my-5   cursor-pointer p-2 rounded-lg  hover:bg-[#6a6868ad] " key={item._id} >
                             <div className=" flex gap-2 items-center ">
                             <img className=" h-10 w-10 rounded-full object-cover " src={item?.image} alt="" />
                             <h1 className=" text-xl font-semibold "> {item?.name} </h1>

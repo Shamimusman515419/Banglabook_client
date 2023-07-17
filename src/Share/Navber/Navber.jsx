@@ -52,7 +52,7 @@ const Navber = () => {
                                         Open ? <AiOutlineClose onClick={() => setOpen(false)} className="iconSize  md:hidden  "></AiOutlineClose> : <FaBars onClick={() => setOpen(true)} className="iconSize  md:hidden  "></FaBars>
                                    }
 
-                                   <FaRegComment className=' hidden md:block iconSize'></FaRegComment>
+                                   <Link to={'/messenger'}>   <FaRegComment className=' hidden md:block iconSize'></FaRegComment></Link>
                                    <div className=' hidden sm:block  relative'>
                                         <MdOutlineNotificationsActive className='  relative iconSize hidden sm:block'></MdOutlineNotificationsActive>
 

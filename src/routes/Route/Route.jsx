@@ -21,6 +21,10 @@ import YourFriend from '../../Pages/Friends/YourFriend';
 import SuggestFriends from "../../Pages/Friends/SuggestFriends";
 
 import WeatherBig from "../../Pages/Home/Weather/WeatherBig";
+import { MyComponent } from "./PrivateRoute/Teaxt";
+import MessengerRoute from "../../Pages/MessengerRoute/MessengerRoute";
+import VideoPage from "../../Pages/Video/Videopage";
+
 const Route = createBrowserRouter([
       {
             path: '/',
@@ -79,6 +83,14 @@ const Route = createBrowserRouter([
                   {
                         path:'/weather',
                         element:<WeatherBig></WeatherBig>
+                  },
+                  {
+                        path:'/messenger',
+                        element:<MessengerRoute></MessengerRoute>
+                  },
+                  {
+                        path:'/video',
+                        element:<VideoPage></VideoPage>
                   }
             ]
       },
@@ -94,6 +106,10 @@ const Route = createBrowserRouter([
       {
             path: "/login",
             element: <Login></Login>
+      },
+      {
+            path: "/text",
+            element: <MyComponent></MyComponent>
       },
 
       {

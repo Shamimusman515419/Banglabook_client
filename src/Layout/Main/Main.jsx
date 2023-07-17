@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import Navber from "../../Share/Navber/Navber";
 
-import { ImMusic } from 'react-icons/im';
+import { LuVideo } from 'react-icons/lu';
 
 import Container from "../../Component/Container/Container";
 import { AiFillCalendar, AiOutlineStar, AiOutlineUsergroupAdd } from "react-icons/ai";
@@ -29,8 +29,8 @@ const Main = () => {
                                              </div>
                                              <hr />
                                              <div className="bg-[#1590CB]  rounded  p-4  ">
-                                                  <Link className=" ">
-                                                       <ImMusic className="iconSize   "></ImMusic>
+                                                  <Link  to={'/video'}>
+                                                       <LuVideo className="iconSize   "></LuVideo>
                                                   </Link>
 
                                              </div>

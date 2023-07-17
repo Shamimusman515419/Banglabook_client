@@ -7,16 +7,29 @@ import { CgProfile } from "react-icons/cg";
 import { NavLink, Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { FadeLoader } from "react-spinners";
+import useAxiosSecure from "../../Component/AsioxSecures/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 
 
 const Profile = () => {
+     const [axiosSecure] = useAxiosSecure();
 
      const { user, updateProfilePhoto } = useContext(AuthContext);
      const [showModal, setShowModal] = useState(false);
+     const [open, setOpen] = useState(false);
      const [imageLoading, setImageLoading] = useState(false);
      const [image, setImage] = useState(false);
+     const [CoverPhoto, setCoverPhoto] = useState("");
 
+     const { data, refetch, isLoading } = useQuery({
+          queryKey: ['user'],
+          queryFn: () => axiosSecure(`/user/${user?.email}`)
+     })
+
+     const userData = data?.data;
+
+     console.log(userData);
      const handleimage = (event) => {
           const selectedImage = event.target.files[0];
           setImageLoading(true)
@@ -33,8 +46,8 @@ const Profile = () => {
                }
           })
      }
-     const name = user?.displayName;
 
+     const name = user?.displayName;
      const updateProfile = () => {
           updateProfilePhoto(name, image).then(result => {
                console.log(result);
@@ -44,13 +57,50 @@ const Profile = () => {
           })
      }
 
+
+     const handleCoverphoto = (event) => {
+          const selectedImage = event.target.files[0];
+          setImageLoading(true)
+          const Imagebb_URL = `https://api.imgbb.com/1/upload?key=a51250151cc877a01d697ac0a493b3bd`
+          const formData = new FormData();
+          formData.append('image', selectedImage);
+          fetch(Imagebb_URL, {
+               method: "POST",
+               body: formData
+          }).then(res => res.json()).then(data => {
+               if (data?.data?.display_url) {
+                    setCoverPhoto(data?.data?.display_url)
+                    setImageLoading(false)
+               }
+          })
+     }
+
+     const changeCoverPhoto = () => {
+          axiosSecure.patch(`/users/${userData?._id}`, { CoverPhoto }).then(result => {
+
+               if (result.modifiedCount) {
+                    setOpen(false)
+               }
+
+
+          }).catch(error => {
+               console.log(error.massage);
+          })
+     }
+
      return (
           <div className=" w-full md:mr-10 mr-1 md:px-20 md:-mt-10 ">
                <div>
                     <div className="">
 
-                         <div className=" md:mt-3 -mt-8">
-                              <img className="  rounded-md w-full h-[40vh] " src="https://img.freepik.com/free-vector/3d-social-media-background_52683-29718.jpg?w=1380&t=st=1689308805~exp=1689309405~hmac=b1beec3c098f47820dde6ca055cc98ee70e085269d7bba91c37dbd7029b5bca9" alt="" />
+                         <div className=" md:mt-3 -mt-8  relative ">
+                              <div className="  relative ">
+                                  {
+                                    userData?.Cover ?  <img className=" relative  rounded-md w-full h-[40vh] " src={userData?.Cover} alt="" /> : <img className=" relative  rounded-md w-full h-[40vh] " src="https://img.freepik.com/free-vector/3d-social-media-background_52683-29718.jpg?w=1380&t=st=1689308805~exp=1689309405~hmac=b1beec3c098f47820dde6ca055cc98ee70e085269d7bba91c37dbd7029b5bca9" alt="" /> 
+                                  }
+                                   <button onClick={() => setOpen(true)} className=" absolute  right-2 text-lg  font-normal bg-[#D8DADF] px-3   bottom-2  py-1 rounded-md "> Change Cover Photo</button>
+                              </div>
+
 
                               <div className=" px-8 md:flex justify-between ">
                                    <div className=" text-center md:flex gap-4  ">
@@ -110,21 +160,21 @@ const Profile = () => {
                                         <div className=" flex justify-center items-center  h-[300px]">
 
                                              {
-                                                   image ? <img className="  object-cover h-full w-full b border  border-blue-600 rounded-full" src={image} alt="" /> : 
-                                             
-                                             <div>
-                                                  {
-                                                         <div>
-                                                         {
-                                                              imageLoading ? <FadeLoader color="#36d7b7" /> : <label htmlFor="profile">   <CgProfile className=" text-blue-500" size={50}></CgProfile>
-       
-                                                                   <input onChange={handleimage} type="file" className=" hidden" name="" id="profile" />
-       
-                                                              </label>
-                                                         }
-                                                    </div>
-                                                  }
-                                             </div> }
+                                                  image ? <img className="  object-cover h-full w-full b border  border-blue-600 rounded-full" src={image} alt="" /> :
+
+                                                       <div>
+                                                            {
+                                                                 <div>
+                                                                      {
+                                                                           imageLoading ? <FadeLoader color="#36d7b7" /> : <label htmlFor="profile">   <CgProfile className=" text-blue-500" size={50}></CgProfile>
+
+                                                                                <input onChange={handleimage} type="file" className=" hidden" name="" id="profile" />
+
+                                                                           </label>
+                                                                      }
+                                                                 </div>
+                                                            }
+                                                       </div>}
 
                                         </div>
                                    </div>
@@ -139,6 +189,67 @@ const Profile = () => {
                                              Close
                                         </button>
                                         <button onClick={updateProfile}
+                                             className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                             type="button"
+
+                                        >
+                                             Post
+                                        </button>
+                                        <Toaster
+                                             position="top-center"
+                                             reverseOrder={true}
+                                        />
+                                   </div>
+                              </div>
+
+
+                         </div> : ""
+                    }
+               </div>
+
+
+
+               <div>
+                    {
+                         open ? <div className=" bg-white justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+
+                              <div className=" shadow-md  md:min-w-[550px]   p-3 rounded-md min-w-[300px] relative w-auto my-6 mx-auto max-w-[1000px]">
+
+                                   <div>
+                                        <h1 className=" text-xl font-medium text-center text-blue-400 my-7"> Change Your Cover Photo</h1>
+
+                                        <div className=" flex justify-center items-center  h-[300px] md:h-[450px]">
+
+                                             {
+                                                  CoverPhoto ? <img className="  object-cover h-full w-full border  border-blue-600   rounded-md" src={CoverPhoto} alt="" /> :
+
+                                                       <div>
+                                                            {
+                                                                 <div>
+                                                                      {
+                                                                           imageLoading ? <FadeLoader color="#36d7b7" /> : <label htmlFor="profile">   <CgProfile className=" text-blue-500" size={50}></CgProfile>
+
+                                                                                <input onChange={handleCoverphoto} type="file" className=" hidden" name="" id="profile" />
+
+                                                                           </label>
+                                                                      }
+                                                                 </div>
+                                                            }
+                                                       </div>}
+
+                                        </div>
+                                   </div>
+
+
+                                   <div className="flex items-center  justify-between p-6 border-t border-solid border-slate-200 rounded-b">
+                                        <button
+                                             className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                             type="button"
+                                             onClick={() => setOpen(false)}
+                                        >
+                                             Close
+                                        </button>
+                                        <button onClick={changeCoverPhoto}
                                              className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                              type="button"
 

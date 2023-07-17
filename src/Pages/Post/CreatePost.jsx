@@ -52,6 +52,7 @@ export default function CreatePost() {
                     toast.success('Post Success');
                     navigate('/');
                     refetch();
+                    setImage('')
                     setShowModal(false);
                }
           }).catch(error => {
