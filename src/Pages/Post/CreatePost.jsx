@@ -28,7 +28,7 @@ export default function CreatePost() {
      const navigate = useNavigate();
      const handleImageChange = (e) => {
           const file = e.target.files[0];
-          const Imagebb_URL = `https://api.imgbb.com/1/upload?key=a51250151cc877a01d697ac0a493b3bd`
+          const Imagebb_URL = `https://api.imgbb.com/1/upload?key=c7cb5be9cc288736ed86ddfa73d22e32`
           const formData = new FormData();
           formData.append('image', file);
           fetch(Imagebb_URL, {
@@ -75,7 +75,7 @@ export default function CreatePost() {
      const handleVideoUpload = async (event) => {
           const file = event.target.files[0];
           const storage = getStorage(app);
-          const storageRef = ref(storage, `videos/${file.name}`);
+          const storageRef = ref(storage, `gs://banglabook-92cb9.appspot.com`);
           const uploadTask = uploadBytesResumable(storageRef, file);
 
           uploadTask.on('state_changed',

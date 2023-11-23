@@ -28,7 +28,7 @@ const Register = () => {
                }).catch(error => {
                     console.log(error);
                })
-               if (user) {
+               if(user) {
                     fetch('https://banglabook-server.vercel.app/users', {
                          method: "POST",
                          headers: { "Content-Type": "application/json" },
@@ -53,7 +53,7 @@ const Register = () => {
      const handleimage = (event) => {
           const selectedImage = event.target.files[0];
           setImageLoading(true)
-          const Imagebb_URL = `https://api.imgbb.com/1/upload?key=a51250151cc877a01d697ac0a493b3bd`
+          const Imagebb_URL = `https://api.imgbb.com/1/upload?key=c7cb5be9cc288736ed86ddfa73d22e32`
           const formData = new FormData();
           formData.append('image', selectedImage);
           fetch(Imagebb_URL, {
@@ -72,7 +72,7 @@ const Register = () => {
           <div className=" bg-[#F0F2F5] min-h-screen p-4 flex justify-center items-center">
                <Container>
                     <div>
-                         <div className="w-full">
+                         <div className="w-full ">
                               <div className="hero-content w-full flex-col lg:flex-row-reverse">
                                    <div className="text-center lg:text-left">
                                         <h1 className="text-5xl font-bold text-blue-500">Banglabook</h1>
@@ -139,7 +139,7 @@ const Register = () => {
                                                   </div>
                                              </form>
 
-                                             <p className=" text-xl font-medium my-2 text-center"> Already registered? <Link to={'/login'} className=" text-blue-400"> Go to log in </Link> </p>
+                                             <p className=" py-2 text-xl font-medium my-2 text-center"> Already registered? <Link to={'/login'} className=" text-blue-400"> Go to log in </Link> </p>
                                         </div>
                                    </div>
                               </div>

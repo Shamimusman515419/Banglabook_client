@@ -33,7 +33,7 @@ const Profile = () => {
      const handleimage = (event) => {
           const selectedImage = event.target.files[0];
           setImageLoading(true)
-          const Imagebb_URL = `https://api.imgbb.com/1/upload?key=a51250151cc877a01d697ac0a493b3bd`
+          const Imagebb_URL = `https://api.imgbb.com/1/upload?key=c7cb5be9cc288736ed86ddfa73d22e32`
           const formData = new FormData();
           formData.append('image', selectedImage);
           fetch(Imagebb_URL, {
@@ -61,7 +61,7 @@ const Profile = () => {
      const handleCoverphoto = (event) => {
           const selectedImage = event.target.files[0];
           setImageLoading(true)
-          const Imagebb_URL = `https://api.imgbb.com/1/upload?key=a51250151cc877a01d697ac0a493b3bd`
+          const Imagebb_URL = `https://api.imgbb.com/1/upload?key=c7cb5be9cc288736ed86ddfa73d22e32`
           const formData = new FormData();
           formData.append('image', selectedImage);
           fetch(Imagebb_URL, {
@@ -77,8 +77,8 @@ const Profile = () => {
 
      const changeCoverPhoto = () => {
           axiosSecure.patch(`/users/${userData?._id}`, { CoverPhoto }).then(result => {
-
-               if (result.modifiedCount) {
+                   console.log(result);
+               if (result) {
                     setOpen(false)
                }
 

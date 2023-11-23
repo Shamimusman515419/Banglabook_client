@@ -4,10 +4,12 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../Component/Authprovider/Authprovider";
 import toast, { Toaster } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { BsFacebook } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
 
 
 const Login = () => {
-     const { Login } = useContext(AuthContext);
+     const { Login,GoogleLogin,FacebookLogin } = useContext(AuthContext);
      const navigate = useNavigate();
      const [loading, setLoading] = useState(false)
      const handleSubmit = (e) => {
@@ -21,11 +23,34 @@ const Login = () => {
                // Signed in 
                const user = userCredential.user;
                navigate('/')
-             })
-             .catch((error) => {
-               const errorCode = error.code;
-               const errorMessage = error.message;
-             });
+          })
+               .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+               });
+     }
+
+     const handleGoolgelogin=()=>{
+          GoogleLogin().then(result=>{
+                console.log(result);
+                if(result){
+                    navigate('/');
+                    toast.success('Successfully Logout!')
+                }
+          }).catch(error=>{{
+                console.log(error);
+          }})
+     }
+     const handleFacebookLogin=()=>{
+          FacebookLogin().then(result=>{
+                console.log(result);
+                if(result){
+                    navigate('/');
+                    toast.success('Successfully Logout!')
+                }
+          }).catch(error=>{{
+                console.log(error.massage);
+          }})
      }
 
      return (
@@ -83,6 +108,16 @@ const Login = () => {
                                    </p>
                               </form>
                               <div className="divider"></div>
+                              <div>
+                                   <div>
+                                        <div onClick={handleGoolgelogin}  className=" cursor-pointer text-2xl py-2 border border-blue-500 rounded-lg my-2 w-full text-center font-semibold ">
+                                             <FcGoogle className=" mx-auto"  size={24}></FcGoogle>
+                                        </div>
+                                        <div  onClick={handleFacebookLogin}  className=" text-2xl py-2 border border-blue-500 rounded-lg my-2 w-full text-center font-semibold ">
+                                             <BsFacebook className="  cursor-pointer  mx-auto text-blue-400"  size={24}></BsFacebook>
+                                        </div>
+                                   </div>
+                              </div>
                               {
                                    loading ? <TbFidgetSpinner></TbFidgetSpinner> : <Link to={'/register'} className=" mx-auto block  rounded-xl text-2xl bg-[#106fd4] px-6 py-2 text-white text-center w-full ">
                                         create account
