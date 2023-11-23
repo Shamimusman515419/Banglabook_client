@@ -10,20 +10,24 @@ import PostApi from "../../Component/Api/PostApi";
 
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import app from "../../Firebaseconfig";
+import { firebaseStroageURL } from "../../utilis";
+import { useEffect } from "react";
+import { useRef } from "react";
 
+const storage = getStorage(app, firebaseStroageURL);
 
 
 export default function CreatePost() {
      const [data, refetch, isLoading] = PostApi();
      const [videoPerc, setVideoPerc] = useState(null);
-     const [input, setInputs] = useState('');
+     const [inputVideo, setInputs] = useState('');
      const { user } = useContext(AuthContext);
      const [axiosSecure] = useAxiosSecure();
+     const [isPlaying, setIsPlaying] = useState(false);
      const [showModal, setShowModal] = React.useState(false);
      const [selectedImage, setSelectedImage] = useState(null);
      const [text, setText] = useState("");
      const [image, setImage] = useState("");
-     console.log(import.meta.env.IMAGEBB)
      const [selectedValue, setSelectedValue] = useState('public');
      const navigate = useNavigate();
      const handleImageChange = (e) => {
@@ -43,9 +47,12 @@ export default function CreatePost() {
                toast.error("File Upload Not Working")
           })
      };
+
+
+     const videoRef = useRef(null);
      const handleSubmit = () => {
-          const PostData = { image, video: input, PostItem: selectedValue, comment:[], name: user?.displayName, userImage: user?.photoURL, like: 0, date: new Date(), likeEmail:[], description: text, activity: "happy" ,email:user?.email};
-          
+          const PostData = { image, video: inputVideo, PostItem: selectedValue, comment: [], name: user?.displayName, userImage: user?.photoURL, like: 0, date: new Date(), likeEmail: [], description: text, activity: "happy", email: user?.email };
+
           axiosSecure.post('/post', PostData).then(result => {
                console.log(result.data.insertedId)
                if (result.data.insertedId) {
@@ -68,40 +75,58 @@ export default function CreatePost() {
 
      };
 
-     //  upload video 
 
 
-     console.log(input);
+
+     const createUniqueFileName = (getFile) => {
+          const timeStamp = Date.now();
+          const randomStringValue = Math.random().toString(36).substring(2, 12);
+
+          return `${getFile.name}-${timeStamp}-${randomStringValue}`;
+     };
+
+     async function helperForUPloadingImageToFirebase(file) {
+          const getFileName = createUniqueFileName(file);
+          const storageReference = ref(storage, `banglabook/${getFileName}`);
+          const uploadImage = uploadBytesResumable(storageReference, file);
+
+          return new Promise((resolve, reject) => {
+               uploadImage.on(
+                    "state_changed",
+                    (snapshot) => {
+                         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                         setVideoPerc((Math.round(progress)))
+                    },
+                    (error) => {
+                         console.log(error);
+                         reject(error);
+                    },
+                    () => {
+                         getDownloadURL(uploadImage.snapshot.ref)
+                              .then((downloadUrl) => resolve(downloadUrl))
+                              .catch((error) => reject(error));
+                    }
+               );
+          });
+     }
+
      const handleVideoUpload = async (event) => {
-          const file = event.target.files[0];
-          const storage = getStorage(app);
-          const storageRef = ref(storage, `gs://banglabook-92cb9.appspot.com`);
-          const uploadTask = uploadBytesResumable(storageRef, file);
 
-          uploadTask.on('state_changed',
-               (snapshot) => {
-                    // Observe the upload progress
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    setVideoPerc((Math.round(progress)))
-                    console.log('Upload is ' + progress + '% done');
-               },
-               (error) => {
-                    // Handle unsuccessful uploads
-                    console.error(error);
-               },
-               () => {
-                    // Handle successful upload
-                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                         setInputs(downloadURL)
-                    })
-                    console.log('Video uploaded successfully');
-               }
+          const extractImageUrl = await helperForUPloadingImageToFirebase(
+               event.target.files[0]
           );
+          console.log(extractImageUrl, "hsmijmdf");
+          if (extractImageUrl) {
+               console.log(extractImageUrl);
+               setInputs(extractImageUrl)
+          }
+
      };
 
 
-
-
+    
+     console.log(inputVideo);
+     console.log(videoPerc);
      return (
           <>
 
@@ -190,6 +215,7 @@ export default function CreatePost() {
                                              <div>
                                                   <div className=" max-h-[400px] overflow-hidden">
 
+
                                                        {selectedImage && (
                                                             <div className=" max-h-[400px] overflow-hidden mx-auto text-center  w-full ">
                                                                  <img className=" w-full max-h-[400px] object-contain    mx-auto text-center" src={selectedImage} alt="Selected" />
@@ -198,7 +224,19 @@ export default function CreatePost() {
                                                        )}
 
                                                        {
-                                                            videoPerc && <p className=" mb-4 text-2xl font-semibold text-center text-[#028924]"> Loading....  {videoPerc}%</p>
+                                                            inputVideo  ? <div className=" h-[300px] hw-full overflow-hidden mx-auto text-center  w-full ">
+                                                                 <video className="  object-contain"  controls={isPlaying} muted loop >   <source src={inputVideo} type="video/mp4"></source> </video>
+
+                                                                 
+
+
+                                                            </div> : null
+                                                       }
+                                                        
+                                                      
+
+                                                       {
+                                                         videoPerc &&  videoPerc <=99   ?  <p className=" mb-4 text-2xl font-semibold text-center text-[#028924]">    Loading....  {videoPerc}%</p>: null
                                                        }
                                                   </div>
                                              </div>
