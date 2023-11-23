@@ -5,7 +5,7 @@ import { FiMoreHorizontal } from "react-icons/fi";
 import { AiFillCamera, AiFillEdit } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { NavLink, Outlet } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { FadeLoader } from "react-spinners";
 import useAxiosSecure from "../../Component/AsioxSecures/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
@@ -49,12 +49,22 @@ const Profile = () => {
 
      const name = user?.displayName;
      const updateProfile = () => {
-          updateProfilePhoto(name, image).then(result => {
-               console.log(result);
-               setShowModal(false)
+          console.log(name, image);
+          axiosSecure.patch(`/users/${user?.email}`, { image }).then(result => {
+               if (result) {
+                    updateProfilePhoto(name, image).then(result => {
+                         setShowModal(false)
+
+                    }).catch(error => {
+
+                         toast.error(error.massage)
+                    })
+               }
+
           }).catch(error => {
-               console.log(error);
+               toast.error(error.massage)
           })
+
      }
 
 
@@ -76,8 +86,8 @@ const Profile = () => {
      }
 
      const changeCoverPhoto = () => {
-          axiosSecure.patch(`/users/${userData?._id}`, { CoverPhoto }).then(result => {
-                   console.log(result);
+          axiosSecure.patch(`/users/${userData?.email}`, { CoverPhoto }).then(result => {
+               console.log(result);
                if (result) {
                     setOpen(false)
                }
@@ -95,9 +105,9 @@ const Profile = () => {
 
                          <div className=" md:mt-3 -mt-8  relative ">
                               <div className="  relative ">
-                                  {
-                                    userData?.Cover ?  <img className=" relative  rounded-md w-full h-[40vh] " src={userData?.Cover} alt="" /> : <img className=" relative  rounded-md w-full h-[40vh] " src="https://img.freepik.com/free-vector/3d-social-media-background_52683-29718.jpg?w=1380&t=st=1689308805~exp=1689309405~hmac=b1beec3c098f47820dde6ca055cc98ee70e085269d7bba91c37dbd7029b5bca9" alt="" /> 
-                                  }
+                                   {
+                                        userData?.Cover ? <img className=" relative  rounded-md w-full h-[40vh] " src={userData?.Cover} alt="" /> : <img className=" relative  rounded-md w-full h-[40vh] " src="https://img.freepik.com/free-vector/3d-social-media-background_52683-29718.jpg?w=1380&t=st=1689308805~exp=1689309405~hmac=b1beec3c098f47820dde6ca055cc98ee70e085269d7bba91c37dbd7029b5bca9" alt="" />
+                                   }
                                    <button onClick={() => setOpen(true)} className=" absolute  right-2 text-lg  font-normal bg-[#D8DADF] px-3   bottom-2  py-1 rounded-md "> Change Cover Photo</button>
                               </div>
 
@@ -105,7 +115,7 @@ const Profile = () => {
                               <div className=" px-8 md:flex justify-between ">
                                    <div className=" text-center md:flex gap-4  ">
                                         <div className=" relative ">
-                                             <img className='    mx-auto border-2 border-white -mt-8 relative h-32 w-32 rounded-full object-cover' src={user?.photoURL} alt="" />
+                                             <img className='    mx-auto border-2 border-white -mt-8 relative h-32 w-32 rounded-full object-cover' src={userData?.image} alt="" />
                                              <AiFillCamera onClick={() => setShowModal(true)} size={24} className="   absolute bottom-0 right-1 border border-white rounded-full cursor-pointer   text-blue-500"></AiFillCamera>
                                         </div>
 
@@ -160,7 +170,7 @@ const Profile = () => {
                                         <div className=" flex justify-center items-center  h-[300px]">
 
                                              {
-                                                  image ? <img className="  object-cover h-full w-full b border  border-blue-600 rounded-full" src={image} alt="" /> :
+                                                  image ? <img className="  object-cover h-[250px] w-[250px]  border  border-blue-600 rounded-full" src={image} alt="" /> :
 
                                                        <div>
                                                             {

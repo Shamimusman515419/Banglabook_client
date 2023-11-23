@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.29.19",
-    "axios": "^1.4.0",
+    "axios": "^1.6.2",
     "emoji-picker-react": "^4.4.9",
     "firebase": "^10.0.0",
     "jsonwebtoken": "^9.0.1",

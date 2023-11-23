@@ -76,7 +76,9 @@ const Main = () => {
 
                               </Container>
                          </div>
+                         <div className=" w-full">
                          <Outlet></Outlet>
+                         </div>
                     </div>
                     <div className="  md:hidden fixed  left-0 right-0 bottom-0  ">
                          <Footer></Footer>

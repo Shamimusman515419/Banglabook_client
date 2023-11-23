@@ -29,11 +29,14 @@ import OtherProfile from "../../Pages/OrthersProfile/OrthersProfile";
 import OtherPhoto from "../../Pages/OrthersProfile/OtherPhoto";
 import OtherVideo from "../../Pages/OrthersProfile/OtherVideo";
 import OtherPost from "../../Pages/OrthersProfile/OtherPost";
+import ErrorPage from "../../Component/ErrorPage/ErrorPage";
+import Setting from "../../Pages/setting/Setting";
 
 const Route = createBrowserRouter([
       {
             path: '/',
             element: <PrivateRoute> <Main></Main></PrivateRoute>,
+            errorElement: <ErrorPage></ErrorPage>,
             children: [
                   {
                         path: '/',
@@ -84,6 +87,10 @@ const Route = createBrowserRouter([
 
 
                         ]
+                  },
+                  {
+                        path: '/setting',
+                        element: <Setting></Setting>
                   },
 
                   {

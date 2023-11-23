@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 
 const SearchBar = () => {
-     const { searchBarOpen, setSearchBarOpen } = useContext(AuthContext)
+     const { setSearchBarOpen } = useContext(AuthContext)
      const [alluser, setAlluser] = useState([])
 
      const [searchName, setSearchName] = useState("")
@@ -18,7 +18,7 @@ const SearchBar = () => {
      useEffect(() => {
 
 
-          axios.get(`http://localhost:5000/alluser?name=${searchName} `)
+          axios.get(`https://banglabook-server.vercel.app/alluser?name=${searchName} `)
                .then(response => {
 
                     setAlluser(response.data)
@@ -51,7 +51,7 @@ const SearchBar = () => {
                     {
                          alluser && alluser?.length > 0 ? (<div>
                               {
-                                   alluser?.map(item => <div key={item?._id}> <Link to={`/otherProfile/profile/${item?._id}`} className="  py-2 px-3 hover:bg-[#00000027]  rounded-md mt-2 cursor-pointer  gap-2  flex  items-center">
+                                   alluser?.map(item => <div onClick={() => setSearchBarOpen(false)} key={item?._id}> <Link to={`/otherProfile/profile/${item?._id}`} className="  py-2 px-3 hover:bg-[#00000027]  rounded-md mt-2 cursor-pointer  gap-2  flex  items-center">
 
                                         <div>
                                              <img className=" h-10 w-10 rounded-full " src={item?.image} alt="" />

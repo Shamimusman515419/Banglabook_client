@@ -14,6 +14,7 @@ import {
      updateProfile,
 } from 'firebase/auth'
 import axios from "axios";
+
 export const AuthContext = createContext(null);
 const auth = getAuth(app)
 
@@ -21,6 +22,7 @@ const auth = getAuth(app)
 const AuthProvider = ({ children }) => {
      const [loading, setLoading] = useState(true)
      const [user, setUser] = useState(null);
+     const [userinfo, setUserinfo] = useState(null);
      const [searchBarOpen, setSearchBarOpen] = useState(false)
      const FacebookProvider = new FacebookAuthProvider();
      const GoogleProvider = new GoogleAuthProvider();
@@ -58,6 +60,20 @@ const AuthProvider = ({ children }) => {
           return signInWithEmailAndPassword(auth, email, password)
      }
 
+
+     const getEmail = async (email) => {
+
+          const res = await fetch(`https://banglabook-server.vercel.app/user/${email}`, {
+               headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access-token')}`
+               }
+          })
+
+          const data = await res.json();
+          setUserinfo(data)
+
+     }
+
      const LogOut = () => {
           return signOut(auth)
      }
@@ -65,6 +81,7 @@ const AuthProvider = ({ children }) => {
           const unsubcript = onAuthStateChanged(auth, currentUser => {
                setUser(currentUser);
                setLoading(false);
+               getEmail(currentUser?.email)
                console.log(currentUser?.email);
                if (currentUser?.email) {
 
@@ -93,8 +110,8 @@ const AuthProvider = ({ children }) => {
           updateProfilePhoto,
           Login,
           loading,
-          user,searchBarOpen, setSearchBarOpen,
-
+          user, searchBarOpen, setSearchBarOpen,
+          userinfo,
           LogOut
      }
      return (

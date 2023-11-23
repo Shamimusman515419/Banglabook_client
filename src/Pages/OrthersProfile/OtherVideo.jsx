@@ -13,7 +13,7 @@ const OtherVideo = () => {
      console.log(userinfo,);
 
      useEffect(() => {
-          fetch(`http://localhost:5000/userId/${params?.id}`).then(res => res.json()).then(data => {
+          fetch(`https://banglabook-server.vercel.app/userId/${params?.id}`).then(res => res.json()).then(data => {
                setUserinfo(data)
           })
 

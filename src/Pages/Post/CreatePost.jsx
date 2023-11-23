@@ -11,7 +11,6 @@ import PostApi from "../../Component/Api/PostApi";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import app from "../../Firebaseconfig";
 import { firebaseStroageURL } from "../../utilis";
-import { useEffect } from "react";
 import { useRef } from "react";
 
 const storage = getStorage(app, firebaseStroageURL);
@@ -131,7 +130,7 @@ export default function CreatePost() {
           <>
 
                <div className=" p-3 postShadwo rounded  bg-white ">
-                    <h1 className=" text-2xl font-medium my-2"> Create Post</h1>
+                    <h1 className=" text-2xl font-medium my-2 text-[#343131]"> Create Post</h1>
                     <div className=" px-3 py-1 flex gap-2 items-center ">
                          <div>
                               <img src={user?.photoURL} className=" h-10 w-10 rounded-full" alt="" />

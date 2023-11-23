@@ -87,7 +87,7 @@ const Navber = () => {
                                                   </Link>
                                                   <hr />
                                                   <div>
-                                                       <Link onClick={() => setProfileOpen(false)} className=' my-2 cursor-pointer hover:bg-[#E4E6E8] p-2  rounded-lg  flex items-center justify-start gap-3 '>
+                                                       <Link to={'/setting'} onClick={() => setProfileOpen(false)} className=' my-2 cursor-pointer hover:bg-[#E4E6E8] p-2  rounded-lg  flex items-center justify-start gap-3 '>
                                                             <AiOutlineSetting size={24}></AiOutlineSetting>
                                                             <p className=' text-xl font-semibold'> Setting</p>
                                                        </Link>

@@ -1,0 +1,31 @@
+
+   .error-container {
+     text-align: center;
+     color: white;
+     background: #0077cc;
+   }
+   
+   h1 {
+     font-size: 8em;
+     margin: 0;
+   }
+   
+   .colorPra{
+     font-size: 1.5em;
+     color: white;
+   }
+   
+   .social-icons {
+     margin-top: 20px;
+   }
+   
+   .social-icons a {
+     display: inline-block;
+     margin: 0 10px;
+     text-decoration: none;
+     font-size: 2em;
+     transition: color 0.3s ease;
+   }
+   
+  
+   
