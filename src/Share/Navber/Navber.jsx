@@ -8,12 +8,13 @@ import DrowpDounMane from './DrowpDounMane';
 import { AuthContext } from '../../Component/Authprovider/Authprovider';
 import toast, { Toaster } from "react-hot-toast";
 import { BiHelpCircle } from 'react-icons/bi';
+import SearchBar from '../../Component/SearchBar/SearchBar';
 const Navber = () => {
      const [Open, setOpen] = useState(false);
      const [logout, setLogout] = useState(false);
      const [ProfileOpen, setProfileOpen] = useState(false);
 
-     const { LogOut, user } = useContext(AuthContext);
+     const { LogOut, user, searchBarOpen, setSearchBarOpen } = useContext(AuthContext);
 
      const hanbleLogout = () => {
 
@@ -26,6 +27,7 @@ const Navber = () => {
      }
 
      console.log(user);
+     console.log(searchBarOpen, );
      return (
           <>
                <div style={{ fontFamily: 'sans-serif, Roboto' }} className='   fixed top-0 w-full  z-50  bgColor'>
@@ -34,16 +36,16 @@ const Navber = () => {
                          <div className=' flex bgColor   justify-between items-center gap-3 py-2'>
                               <div className=' flex gap-3 items-center '>
                                    <NavLink className={" text-base md:text-4xl font-bold "}> Banglabook</NavLink>
-                                   <div className=' flex items-center justify-center gap-5  bg-[#038ac9c8] shadow px-3 py-2  rounded'>
+                                   <div className={` ${searchBarOpen  == true ? "hidden" :  "flex"  } flex items-center justify-center gap-5  bg-[#038ac9c8] shadow px-3 py-2  rounded`}>
                                         <AiOutlineSearch className='  hidden md:block   iconSize'></AiOutlineSearch>
-                                        
-                                        <input className='  w-20 md:w-full  outline-none border-none text-xs font-normal bg-transparent' type="text" placeholder=' Friends  ' />
+
+                                        <input onChange={() => setSearchBarOpen(true)} className='  w-20 md:w-full  outline-none border-none text-xs font-normal bg-transparent' type="text" placeholder=' Friends  ' />
                                         <AiOutlineClose className='  hidden md:hidden  iconSize'></AiOutlineClose>
                                    </div>
-                                  <div className='hidden md:block '>
+                                   <div className='hidden md:block '>
                                         <div className='  flex gap-10  '>
                                              <AiOutlineHome className='iconSize hidden md:block '></AiOutlineHome>
-                                             <Link to={'/friends/yourFriends'}>  <AiOutlineUserAdd  className='iconSize hidden md:block '></AiOutlineUserAdd></Link>
+                                             <Link to={'/friends/yourFriends'}>  <AiOutlineUserAdd className='iconSize hidden md:block '></AiOutlineUserAdd></Link>
                                         </div>
                                    </div>
                               </div>
@@ -112,6 +114,13 @@ const Navber = () => {
                          reverseOrder={false}
                     />
                </div>
+               {
+                    searchBarOpen ==true ? <div className={` bg-white px-7  rounded-md py-4 fixed top-1  md:w-[400px]  h-auto z-50`}>
+                         <SearchBar></SearchBar>
+                    </div> : null
+               }
+
+
 
                <div className='   pt-10'>
                     {

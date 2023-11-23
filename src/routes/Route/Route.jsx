@@ -24,6 +24,11 @@ import WeatherBig from "../../Pages/Home/Weather/WeatherBig";
 import { MyComponent } from "./PrivateRoute/Teaxt";
 import MessengerRoute from "../../Pages/MessengerRoute/MessengerRoute";
 import VideoPage from "../../Pages/Video/Videopage";
+import OtherProfile from "../../Pages/OrthersProfile/OrthersProfile";
+
+import OtherPhoto from "../../Pages/OrthersProfile/OtherPhoto";
+import OtherVideo from "../../Pages/OrthersProfile/OtherVideo";
+import OtherPost from "../../Pages/OrthersProfile/OtherPost";
 
 const Route = createBrowserRouter([
       {
@@ -66,7 +71,7 @@ const Route = createBrowserRouter([
                                     path: '/friends/yourFriends',
                                     element: <YourFriend></YourFriend>
                               },
-                   ]
+                        ]
                   },
                   {
                         path: '/friends/suggestFriends',
@@ -80,18 +85,43 @@ const Route = createBrowserRouter([
 
                         ]
                   },
+
                   {
-                        path:'/weather',
-                        element:<WeatherBig></WeatherBig>
+                        path: '/weather',
+                        element: <WeatherBig></WeatherBig>
                   },
                   {
-                        path:'/messenger',
-                        element:<MessengerRoute></MessengerRoute>
+                        path: '/messenger',
+                        element: <MessengerRoute></MessengerRoute>
                   },
                   {
-                        path:'/video',
-                        element:<VideoPage></VideoPage>
+                        path: '/video',
+                        element: <VideoPage></VideoPage>
+                  },
+
+                  {
+                        path: '/otherProfile/profile/:id',
+                        element: <OtherProfile></OtherProfile>,
+                        children: [
+                              {
+                                    path: '/otherProfile/profile/:id',
+                                    element: <OtherPost></OtherPost>
+                              },
+                              {
+                                    path: '/otherProfile/profile/:id/photo/:id',
+                                    element: <OtherPhoto></OtherPhoto>
+                              },
+                              {
+                                    path: '/otherProfile/profile/:id/video/:id',
+                                    element: <OtherVideo></OtherVideo>
+                              }
+                        ]
+
+
+
                   }
+
+
             ]
       },
       {

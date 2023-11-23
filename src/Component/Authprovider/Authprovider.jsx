@@ -21,6 +21,7 @@ const auth = getAuth(app)
 const AuthProvider = ({ children }) => {
      const [loading, setLoading] = useState(true)
      const [user, setUser] = useState(null);
+     const [searchBarOpen, setSearchBarOpen] = useState(false)
      const FacebookProvider = new FacebookAuthProvider();
      const GoogleProvider = new GoogleAuthProvider();
      const createUser = (email, password) => {
@@ -92,7 +93,8 @@ const AuthProvider = ({ children }) => {
           updateProfilePhoto,
           Login,
           loading,
-          user,
+          user,searchBarOpen, setSearchBarOpen,
+
           LogOut
      }
      return (

@@ -186,7 +186,7 @@ const Post = ({ post,imageData }) => {
                     <p className=" text-black text-base font-medium">{description} </p>
 
                     {
-                         post?.video ? <video ref={videoRef} controls={isPlaying} muted loop ref={videoRef} controls={isPlaying} >   <source src={post?.video} type="video/mp4"></source> </video> : <img className=" w-full max-h-[400px] my-2 object-cover" src={post?.image} alt="" />
+                         post?.video ? <video className="  w-full h-[500px] my-2 object-cover" ref={videoRef} controls={isPlaying} muted loop ref={videoRef} controls={isPlaying} >   <source src={post?.video} type="video/mp4"></source> </video> : <img className=" w-full max-h-[400px] my-2 object-cover" src={post?.image} alt="" />
                     }
 
                </div>

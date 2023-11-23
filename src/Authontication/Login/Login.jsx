@@ -9,7 +9,7 @@ import { FcGoogle } from "react-icons/fc";
 
 
 const Login = () => {
-     const { Login,GoogleLogin,FacebookLogin } = useContext(AuthContext);
+     const { Login, verifyUser, GoogleLogin, FacebookLogin } = useContext(AuthContext);
      const navigate = useNavigate();
      const [loading, setLoading] = useState(false)
      const handleSubmit = (e) => {
@@ -27,30 +27,51 @@ const Login = () => {
                .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
+                    toast.error(errorMessage)
                });
      }
 
-     const handleGoolgelogin=()=>{
-          GoogleLogin().then(result=>{
-                console.log(result);
-                if(result){
-                    navigate('/');
-                    toast.success('Successfully Logout!')
-                }
-          }).catch(error=>{{
-                console.log(error);
-          }})
+     const handleGoolgelogin = () => {
+          GoogleLogin().then(result => {
+
+               const user = result?.user;
+
+               if (result) {
+                    const userInfo = { name: user?.displayName, email: user?.email, image: user?.photoURL };
+                    fetch('https://banglabook-server.vercel.app/users', {
+                         method: "POST",
+                         headers: { "Content-Type": "application/json" },
+                         body: JSON.stringify(userInfo),
+                    }).then((res) => res.json()).then(data => {
+                         verifyUser()
+                         if (data.insertedId) {
+                              toast.success('Successfully Logout!')
+                              setLoading(false)
+                              navigate('/')
+                         }
+                    })
+               }
+
+
+
+          }).catch(error => {
+               {
+                    console.log(error);
+               }
+          })
      }
-     const handleFacebookLogin=()=>{
-          FacebookLogin().then(result=>{
-                console.log(result);
-                if(result){
+     const handleFacebookLogin = () => {
+          FacebookLogin().then(result => {
+               console.log(result);
+               if (result) {
                     navigate('/');
                     toast.success('Successfully Logout!')
-                }
-          }).catch(error=>{{
-                console.log(error.massage);
-          }})
+               }
+          }).catch(error => {
+               {
+                    console.log(error.massage);
+               }
+          })
      }
 
      return (
@@ -110,11 +131,11 @@ const Login = () => {
                               <div className="divider"></div>
                               <div>
                                    <div>
-                                        <div onClick={handleGoolgelogin}  className=" cursor-pointer text-2xl py-2 border border-blue-500 rounded-lg my-2 w-full text-center font-semibold ">
-                                             <FcGoogle className=" mx-auto"  size={24}></FcGoogle>
+                                        <div onClick={handleGoolgelogin} className=" cursor-pointer text-2xl py-2 border border-blue-500 rounded-lg my-2 w-full text-center font-semibold ">
+                                             <FcGoogle className=" mx-auto" size={24}></FcGoogle>
                                         </div>
-                                        <div  onClick={handleFacebookLogin}  className=" text-2xl py-2 border border-blue-500 rounded-lg my-2 w-full text-center font-semibold ">
-                                             <BsFacebook className="  cursor-pointer  mx-auto text-blue-400"  size={24}></BsFacebook>
+                                        <div onClick={handleFacebookLogin} className=" text-2xl py-2 border border-blue-500 rounded-lg my-2 w-full text-center font-semibold ">
+                                             <BsFacebook className="  cursor-pointer  mx-auto text-blue-400" size={24}></BsFacebook>
                                         </div>
                                    </div>
                               </div>
