@@ -37,7 +37,7 @@ const Login = () => {
                const user = result?.user;
 
                if (result) {
-                    const userInfo = { name: user?.displayName, email: user?.email, image: user?.photoURL };
+                    const userInfo = { name: user?.displayName, addTime: new Date(), email: user?.email, image: user?.photoURL };
                     fetch('https://banglabook-server.vercel.app/users', {
                          method: "POST",
                          headers: { "Content-Type": "application/json" },

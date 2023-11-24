@@ -21,19 +21,19 @@ const DrowpDounMane = ({ setOpen, hanbleLogout }) => {
                     </Link>
                </div>
                <div className=" text-center">
-                    <Link to={'/video'}>
+                    <Link onClick={() => setOpen(false)} to={'/video'}>
                          <LuVideo className="iconSize mx-auto  text-[#0697d0fa]  "></LuVideo>
                     </Link>
                     <h1> Video</h1>
                </div>
                <div className=" text-center">
-                    <Link to="/friends">
+                    <Link onClick={() => setOpen(false)}  to="/friends/yourFriends">
                          <AiOutlineUserAdd className="iconSize mx-auto  text-[#0697d0fa] "></AiOutlineUserAdd>
                     </Link>
                     <h1> Group</h1>
                </div>
                <div className=" text-center">
-                    <Link to={'/messenger'}>
+                    <Link  onClick={() => setOpen(false)} to={'/messenger'}>
                          <FaRegComment className="iconSize mx-auto  text-[#0697d0fa]"></FaRegComment>
                     </Link>
                     <h1> Comment</h1>
@@ -44,20 +44,15 @@ const DrowpDounMane = ({ setOpen, hanbleLogout }) => {
                     </Link>
                     <h1> Start</h1>
                </div>
+               
                <div className=" text-center">
-                    <Link>
-                         <IoLogoGameControllerA className="iconSize  mx-auto  text-[#0697d0fa]"></IoLogoGameControllerA>
-                    </Link>
-                    <h1> Games</h1>
-               </div>
-               <div className=" text-center">
-                    <Link to="/weather">
+                    <Link  onClick={() => setOpen(false)} to="/weather">
                          <TiWeatherPartlySunny className="iconSize mx-auto text-[#0697d0fa]   "></TiWeatherPartlySunny>
                     </Link>
                     <h1> Weather</h1>
                </div>
                <div className=" text-center">
-                    <Link className="/setting">
+                    <Link  onClick={() => setOpen(false)} to="/setting">
                          <IoMdSettings className="iconSize  mx-auto  text-[#0697d0fa]  "></IoMdSettings>
                     </Link>
                     <h1> Setting</h1>

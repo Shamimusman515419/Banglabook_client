@@ -3,7 +3,7 @@ import { FaRegCommentDots, FaRegHeart } from "react-icons/fa";
 
 
 import { FiX, FiMoreHorizontal } from 'react-icons/fi';
-import { PiCloudFog, PiShareFatBold } from 'react-icons/pi';
+import { PiShareFatBold } from 'react-icons/pi';
 
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { BiEdit } from 'react-icons/bi';
@@ -18,16 +18,19 @@ import Swal from 'sweetalert2'
 import PostApi from "../../Component/Api/PostApi";
 import { AuthContext } from "../../Component/Authprovider/Authprovider";
 import Comment from "./Comment";
+import { Link, useNavigate } from "react-router-dom";
 
-// import 'sweetalert2/src/sweetalert2.scss'
 
-const Post = ({ post,imageData }) => {
-  
+const Post = ({ post }) => {
+
+
      const { user } = useContext(AuthContext);
+     const [showPost, setShopPost] = useState(false)
      const LikeUser = user?.email;
+     const route = useNavigate();
      const [data, refetch, isLoading] = PostApi();
      const [axiosSecure] = useAxiosSecure();
-     const { name, description, activity, comment, PostItem, userImage, _id, like, likeEmail } = post;
+     const { description, activity, comment, user: userData, PostItem, userImage, _id, like, likeEmail } = post;
      const [open, setOpen] = useState(false)
      const [isPlaying, setIsPlaying] = useState(false);
      const [openDelete, setOpenDelete] = useState(false)
@@ -35,8 +38,8 @@ const Post = ({ post,imageData }) => {
      const [commentOpen, setCommentOpen] = useState(false)
      const update = { like, likeEmail, LikeUser }
 
-   
 
+     const postInfo = userData?.[0];
 
      // handleLike api 
      const handleLike = (id) => {
@@ -51,8 +54,6 @@ const Post = ({ post,imageData }) => {
      }
 
      const videoRef = useRef(null);
-
-
      // handleDelete function 
      const handleDelete = (_id) => {
 
@@ -91,11 +92,6 @@ const Post = ({ post,imageData }) => {
 
 
      }
-
-     // commentText  function 
-
-
-
 
      const handleCommnetSubmit = (id) => {
           const CommentData = { commentText, img: user?.photoURL, name: user?.displayName, email: user?.email }
@@ -139,18 +135,62 @@ const Post = ({ post,imageData }) => {
           return
      }
      const Email = likeEmail.find(email => email == user?.email);
-     console.log(like);
+
+     console.log(showPost);
+
      return (
-          <div className={`shadow-md rounded ${open ? " hidden " : "black"}`}>
-               <div className=" relative p-2 flex   justify-between gap-2">
-                    <div>
+          <div className={`shadow-md rounded relative ${open ? " hidden " : "black"}`}>
+
+               <div>
+                    {
+                         showPost ? <div onMouseLeave={() => setShopPost(false)} onMouseOver={() => setShopPost(true)} className=" w-full absolute   bg-white z-40   md:max-w-[400px]  top-4 left-4 p-4    rounded-xl  postShadwo ">
+
+                              <div className=" flex   flex-col   gap-3">
+
+                                   <div className=" text-center mx-auto">
+                                        <img onClick={() => route(`/otherProfile/profile/${postInfo?._id ? postInfo?._id : ""}`)} className=" cursor-pointer w-[120px] rounded-full h-[120px]  text-base " src={postInfo?.image} alt="" />
+                                   </div>
+                                   <div className="  mt-2  text-center ">
+                                        <Link to={`/otherProfile/profile/${postInfo?._id ? postInfo?._id : ""}`} className=" text-base hover:underline    md:text-xl  font-medium"> {postInfo?.name} </Link>
+
+                                        <div>
+                                             <p>
+                                                  <Link to={'/profile/followers'}> {postInfo?.followers?.length ? postInfo?.followers?.length : 0} followers </Link> •  <Link to={'/profile/followers'}>  {postInfo?.following?.length ? postInfo?.following?.length : 0} following</Link> </p>
+                                        </div>
+                                   </div>
+
+                                   <div className="  text-center text-base capitalize   md:text-xl">
+                                        {
+                                             postInfo?.address ? <p>{postInfo?.address}</p> : "new user"
+                                        }
+                                   </div>
+
+
+
+
+                              </div>
+                            
+
+                              <div className=" w-full">
+                                   <button className=" w-full secondCommonButton my-3"> Following</button>
+                                   <button className=" w-full secondCommonButton my-3"> Massage</button>
+                              </div>
+
+
+                         </div> : null
+                    }
+
+
+               </div>
+               <div className=" w-full  relative p-2 flex   justify-between gap-2">
+                    <Link to={`/otherProfile/profile/${postInfo?._id ? postInfo?._id : ""}`}>
                          <div className="  flex  items-start  gap-2  justify-start space-y-1">
 
-                              <img className=" h-9 w-9 rounded-full " src={userImage} alt="" />
-                              <p className=" text-lg text-black font-semibold"> {name} <span className="text-lg  font-normal"> {PostItem}</span> <span className="text-lg  font-normal"> /  {activity}</span>  </p>
+                              <img className=" h-9 w-9 rounded-full " src={postInfo?.image ? postInfo?.image : ""} alt="" />
+                              <p onMouseLeave={() => setShopPost(false)} onMouseOver={() => setShopPost(true)} className=" hover:underline text-base  md:text-lg text-black font-semibold"> {postInfo?.name ? postInfo?.name : ""} <span className="text-[12px]  md:text-sm font-normal"> {PostItem}</span> <span className="text-[12px]  md:text-sm  font-normal"> /  {activity}</span>  </p>
 
                          </div>
-                    </div>
+                    </Link>
                     <div className="  flex justify-center items-center gap-5 -mt-6 md:mt-0 ">
 
                          <div onClick={() => setOpenDelete(!openDelete)} className="rounded-full p-2  hover:bg-[#e2dddd]">
@@ -182,11 +222,11 @@ const Post = ({ post,imageData }) => {
                     </div>
                </div>
 
-               <div>
-                    <p className=" text-black text-base font-medium">{description} </p>
+               <div className=" w-full ">
+                    <p className=" text-black text-sm md:text-base font-medium">{description} </p>
 
                     {
-                         post?.video ? <video className="  w-full h-[500px] my-2 object-cover" ref={videoRef} controls={isPlaying} muted loop ref={videoRef} controls={isPlaying} >   <source src={post?.video} type="video/mp4"></source> </video> : <img className=" w-full max-h-[400px] my-2 object-cover" src={post?.image} alt="" />
+                         post?.video ? <video className="  w-full h-[500px] overflow-hidden my-2 object-cover" ref={videoRef} controls={isPlaying} muted loop ref={videoRef} controls={isPlaying} >   <source src={post?.video} type="video/mp4"></source> </video> : <img className=" w-full max-h-[400px] my-2 object-cover" src={post?.image} alt="" />
                     }
 
                </div>
@@ -194,23 +234,23 @@ const Post = ({ post,imageData }) => {
                <div className=" p-2">
                     <div className="  flex justify-between items-center gap-2">
                          <div>
-                         {like >= 0 ? <div className=" cursor-pointer"> {like} Other </div> : ""}
+                              {like >= 0 ? <div className=" cursor-pointer"> {like} Other </div> : ""}
                          </div>
                          <div>
-                              { comment.length >= 0 ? <div> {comment.length} Other comment </div> : ""}
+                              {comment.length >= 0 ? <div> {comment.length} Other comment </div> : ""}
                          </div>
                     </div>
-                   
+
                     <hr className=" my-2 p-2 " />
                     <div className=" flex   items-center  justify-around gap-2">
-                         <button disabled={Email}  onClick={() => handleLike(_id)} className="  hover:bg-[#bbb9b9d4] px-2 py-1 rounded-lg w-full cursor-pointer flex  gap-2 items-center justify-center">
+                         <button disabled={Email} onClick={() => handleLike(_id)} className="  hover:bg-[#bbb9b9d4] px-2 py-1 rounded-lg w-full cursor-pointer flex  gap-2 items-center justify-center">
                               {
                                    Email ? <FcLike size={24}></FcLike> : <FaRegHeart size={24}></FaRegHeart>
                               }
 
                               <p className=" font-medium text-base"> Love</p>
                          </button>
-                     
+
                          <div onClick={() => setCommentOpen(!commentOpen)} className="  hover:bg-[#bbb9b9d4] px-2 py-1 rounded-lg w-full cursor-pointer flex  gap-2 items-center justify-center">
                               <FaRegCommentDots size={24}></FaRegCommentDots>
                               <p className=" font-medium text-base"> comment</p>
@@ -268,7 +308,7 @@ const Post = ({ post,imageData }) => {
                     }
 
                </div>
-          </div>
+          </div >
      );
 };
 

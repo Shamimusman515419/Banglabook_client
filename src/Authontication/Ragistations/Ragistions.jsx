@@ -20,7 +20,7 @@ const Register = () => {
      const onSubmit = data => {
           setLoading(true)
           const name = data.fistName + " " + data.lastName;
-          const userInfo = { name, email: data.email, image };
+          const userInfo = { name, addTime: new Date(), email: data.email, image };
           createUser(data?.email, data?.password).then(result => {
                const user = result.user;
                updateUserProfile(name, image).then(result => {
@@ -28,7 +28,7 @@ const Register = () => {
                }).catch(error => {
                     console.log(error);
                })
-               if(user) {
+               if (user) {
                     fetch('https://banglabook-server.vercel.app/users', {
                          method: "POST",
                          headers: { "Content-Type": "application/json" },

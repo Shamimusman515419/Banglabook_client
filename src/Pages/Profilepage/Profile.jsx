@@ -15,7 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 const Profile = () => {
      const [axiosSecure] = useAxiosSecure();
 
-     const { user, updateProfilePhoto } = useContext(AuthContext);
+     const { user, updateProfilePhoto , userinfo} = useContext(AuthContext);
      const [showModal, setShowModal] = useState(false);
      const [open, setOpen] = useState(false);
      const [imageLoading, setImageLoading] = useState(false);
@@ -121,7 +121,7 @@ const Profile = () => {
 
                                         <div className=" mt-2">
                                              <h1 className='relative uppercase font-semibold text-black  text-2xl'>{user?.displayName}</h1>
-                                             <p className=" text-lg">  <NavLink>1.2K followers </NavLink> •  <NavLink>151 following</NavLink> </p>
+                                             <p className=" text-lg">  <NavLink to={'/profile/followers'}> {userinfo?.followers?.length ? userinfo?.followers?.length : 0} followers </NavLink> •  <NavLink to={'/profile/followers'}>  {userinfo?.following?.length ? userinfo?.following?.length : 0} following</NavLink> </p>
                                         </div>
                                    </div>
                                    <div>
@@ -144,10 +144,10 @@ const Profile = () => {
                     <div className=" flex items-center justify-between">
                          <div className=" flex  items-center  flex-wrap gap-4 md:gap-6">
                               <NavLink to={'/profile/post'} className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>Post</NavLink>
-                              <NavLink className={"text-lg font-medium"}>About</NavLink>
+                              <NavLink to={'/profile/about'}className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>About</NavLink>
                               <NavLink to={'/profile/photo'} className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>Photo</NavLink>
-                              <NavLink to={'video'} className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>Video</NavLink>
-                              <NavLink className={"text-lg font-medium"}>Followers</NavLink>
+                              <NavLink to={'/profile/video'} className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>Video</NavLink>
+                              <NavLink to={'/profile/followers'} className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>Followers</NavLink>
                          </div>
                          <div className="md:block hidden only:  bg-[#d2cdcd] p-3 rounded-full ">
                               <FiMoreHorizontal stitchTiles={28}></FiMoreHorizontal>

@@ -27,7 +27,7 @@ const Navber = () => {
      }
 
      console.log(user);
-     console.log(searchBarOpen, );
+     console.log(searchBarOpen,);
      return (
           <>
                <div style={{ fontFamily: 'sans-serif, Roboto' }} className='   fixed top-0 w-full  z-50  bgColor'>
@@ -36,7 +36,7 @@ const Navber = () => {
                          <div className=' flex bgColor   justify-between items-center gap-3 py-2'>
                               <div className=' flex gap-3 items-center '>
                                    <NavLink className={" text-base md:text-4xl font-bold "}> Banglabook</NavLink>
-                                   <div className={` ${searchBarOpen  == true ? "hidden" :  "flex"  } flex items-center justify-center gap-5  bg-[#038ac9c8] shadow px-3 py-2  rounded`}>
+                                   <div className={` ${searchBarOpen == true ? "hidden" : "flex"} flex items-center justify-center gap-5  bg-[#038ac9c8] shadow px-3 py-2  rounded`}>
                                         <AiOutlineSearch className='  hidden md:block   iconSize'></AiOutlineSearch>
 
                                         <input onChange={() => setSearchBarOpen(true)} className='  w-20 md:w-full  outline-none border-none text-xs font-normal bg-transparent' type="text" placeholder=' Friends  ' />
@@ -44,7 +44,10 @@ const Navber = () => {
                                    </div>
                                    <div className='hidden md:block '>
                                         <div className='  flex gap-10  '>
-                                             <AiOutlineHome className='iconSize hidden md:block '></AiOutlineHome>
+                                             <Link to={'/'}>
+                                                  <AiOutlineHome className='iconSize hidden md:block '></AiOutlineHome>
+                                             </Link>
+
                                              <Link to={'/friends/yourFriends'}>  <AiOutlineUserAdd className='iconSize hidden md:block '></AiOutlineUserAdd></Link>
                                         </div>
                                    </div>
@@ -115,7 +118,7 @@ const Navber = () => {
                     />
                </div>
                {
-                    searchBarOpen ==true ? <div className={` bg-white px-7  rounded-md py-4 fixed top-1  md:w-[400px]  h-auto z-50`}>
+                    searchBarOpen == true ? <div className={` bg-white px-7  rounded-md py-4 fixed top-1  md:w-[400px]  h-auto z-50`}>
                          <SearchBar></SearchBar>
                     </div> : null
                }

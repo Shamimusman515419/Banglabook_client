@@ -2,12 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-.bgColor{
+.bgColor {
    background-color: #0389C9;
    color: white;
 }
 
-.iconSize{
+.commonButton {
+   background-color: #0389C9;
+   color: white;
+   padding: 5px 12px;
+   border-radius: 5px;
+   display: block;
+
+}
+
+.secondCommonButton {
+   color: black;
+   border: 1px solid rgba(0, 0, 0, 0.334);
+   padding: 5px 12px;
+   border-radius: 10px;
+   display: block;
+   transition: 0.4s linear;
+
+
+}
+
+.secondCommonButton:hover {
+   background-color: #0389C9;
+   color: white;
+   border: none;
+}
+
+
+
+.iconSize {
    font-size: 26px;
 }
 
@@ -16,24 +44,24 @@
    /* position: sticky; */
    top: 0;
    z-index: 1020;
-   
+
 }
 
 .scrollbar-hidden {
-     overflow: scroll;
- }
- .scrollbar-hidden::-webkit-scrollbar{
-    width: 0px;
+   overflow: scroll;
+}
 
- }
+.scrollbar-hidden::-webkit-scrollbar {
+   width: 0px;
 
-.boxshadow{
+}
+
+.boxshadow {
    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
 }
 
-.postShadwo{
+.postShadwo {
    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
-.overflow{
-    
-}
+
+.overflow {}

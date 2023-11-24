@@ -185,7 +185,7 @@ export default function CreatePost() {
                                              <div className=" flex items-center ">
                                                   <div className=" flex justify-center cursor-pointer  items-center gap-2">
                                                        <img src={user?.photoURL} className=" h-10 w-10 rounded-full " alt="" />
-                                                       <h1>{user?.displayName}</h1>
+                                                       <h1 className=" text-base md:text-xl">{user?.displayName}</h1>
                                                   </div>
                                                   <div>
                                                        <select value={selectedValue} onChange={handleChange} name="post" id="post" className="block w-full p-2   rounded-md focus:outline-none focus:border-blue-500">
