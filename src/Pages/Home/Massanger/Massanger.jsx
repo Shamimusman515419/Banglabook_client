@@ -3,6 +3,8 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineSearch, AiOutlineSetting } from "react-icons/ai";
 import { AuthContext } from "../../../Component/Authprovider/Authprovider";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../Component/AsioxSecures/useAxiosSecure";
 
 
 const Messanger = ({ handleMessage }) => {
@@ -11,8 +13,6 @@ const Messanger = ({ handleMessage }) => {
 
      const [searchName, setSearchName] = useState("")
      useEffect(() => {
-
-
           axios.get(`https://banglabook-server.vercel.app/alluser?name=${searchName} `)
                .then(response => {
 
@@ -22,7 +22,12 @@ const Messanger = ({ handleMessage }) => {
                     console.error('Error:', error);
                });
 
-     }, [searchName])
+     }, [searchName]);
+
+
+
+
+
      const Friend = allUser?.filter(item => item.email !== user?.email);
 
      return (
@@ -46,8 +51,9 @@ const Messanger = ({ handleMessage }) => {
                          </div>
                     </div>
                     <div className=" ">
-                         <div className=" scrollbar-hidden h-[80vh] ">
-                              <h1 className=" text-xl font-semibold my-2"> Friend </h1>
+                         <h1 className=" text-center textColor text-2xl font-semibold my-2"> inbox </h1>
+                         <div className="  overflow-y-auto h-[80vh] ">
+
                               <div>
                                    {Friend && Friend.map(item => <div onClick={() => handleMessage(item?.email)} className=" my-5   cursor-pointer p-2 rounded-lg  hover:bg-[#6a6868ad] " key={item._id} >
                                         <div className=" flex gap-2 items-center ">

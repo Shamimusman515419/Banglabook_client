@@ -26,6 +26,9 @@ const ViewStrory = () => {
    }, []);
    console.log(story);
 
+
+
+
    return (
 
       <>
@@ -40,7 +43,8 @@ const ViewStrory = () => {
                   </div>
                      <Link to={'/'}> <img className=" h-10 w-10 rounded-full " src={logo} alt="" />  </Link>
                   </div>
-                  <hr className=" p-1" />
+                  <Link to={'/'} className=" textColor text-2xl py-3 "> Create Story</Link>
+                  <hr className=" mt-4 p-1" />
                   <div>
                      {
                         story && story.map(data => <div key={data._id}>
@@ -74,7 +78,7 @@ const ViewStrory = () => {
                            }}
                            navigation={true}
                            modules={[Autoplay, Pagination, Navigation]}
-                        className="swiper">
+                           className="swiper">
 
                            {
                               story && story.map(story => <SwiperSlide key={story._id}>
@@ -85,7 +89,7 @@ const ViewStrory = () => {
                                           <div className=" absolute top-3 left-2 ">
                                              <div className=" flex justify-end gap-3 items-center">
                                                 <img className=" object-cover  w-12 h-12 md:w-18 md:w-18 rounded-full border-2 border-blue-600" src={story?.img} alt="" />
-                                                <h1 className="  text-xl font-medium ">{story?.name ? story?.name : "Shamim hossain"}</h1>
+                                                <h1 className="  text-2xl     text-white  font-bold ">{story?.name ? story?.name : "Shamim hossain"}</h1>
                                              </div>
                                           </div>
                                        </div>
@@ -113,14 +117,14 @@ const ViewStrory = () => {
                   <Link to={'/'}> <img className=" h-10 w-10 rounded-full " src={logo} alt="" />  </Link>
                </div>
             </div>
-            <Swiper  centeredSlides={true}  autoplay={{
-                           delay: 2500,
-                           disableOnInteraction: true,
-                        }}
-                           pagination={{
-                              clickable: true,
-                           }}
-                         modules={[Autoplay, Pagination, Navigation]} className="swiper">
+            <Swiper centeredSlides={true} autoplay={{
+               delay: 2500,
+               disableOnInteraction: true,
+            }}
+               pagination={{
+                  clickable: true,
+               }}
+               modules={[Autoplay, Pagination, Navigation]} className="swiper">
 
                {
                   story && story.map(story => <SwiperSlide key={story._id}>
