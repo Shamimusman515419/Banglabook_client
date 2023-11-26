@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
      const [user, setUser] = useState(null);
      const [userinfo, setUserinfo] = useState(null);
      const [searchBarOpen, setSearchBarOpen] = useState(false)
+     const [commonLoader,setCommonLoader] = useState(false)
      const FacebookProvider = new FacebookAuthProvider();
      const GoogleProvider = new GoogleAuthProvider();
      const createUser = (email, password) => {
@@ -108,7 +109,7 @@ const AuthProvider = ({ children }) => {
           GoogleLogin, FacebookLogin,
           verifyUser,
           updateProfilePhoto,
-          Login,
+          Login,commonLoader,setCommonLoader,
           loading,
           user, searchBarOpen, setSearchBarOpen,
           userinfo,

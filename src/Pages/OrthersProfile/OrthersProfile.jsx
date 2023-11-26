@@ -24,7 +24,7 @@ const OtherProfile = () => {
      const userData = data?.data;
 
      const handleClick = (email) => {
-          const fromData = { me: user?.email, friend: email }
+          const fromData = { me: user?.email, friend:email }
           console.log(fromData);
           axiosSecure.post('/follower', fromData).then(result => {
                console.log(result);
@@ -63,10 +63,9 @@ const OtherProfile = () => {
                                              <p className=" text-lg">  <NavLink to={`/otherProfile/profile/${params?.id}/followers/${params?.id}`}> {userData?.followers?.length ? userData?.followers?.length : 0} followers</NavLink> •  <NavLink to={`/otherProfile/profile/${params?.id}/followers/${params?.id}`}>{userData?.following?.length ? userData?.following?.length : 0} following</NavLink> </p>
                                         </div>
                                    </div>
-                                   <div className="  sm:flex  items-center  gap-1  ">
-
-                                        <div onClick={() => handleClick(userData?.email)} className="commonButton   text-base  md:text-xl cursor-pointer">{active ? active : "Add Friend"}</div>
-                                        <div className=" commonButton text-base  md:text-xl    cursor-pointer"> Massage</div>
+                                   <div className=" mt-7 md:mt-0  sm:flex  items-center  gap-1 text-center   ">
+                                        <div onClick={() => handleClick(userData?.email)} className="commonButton   my-3 text-base  md:text-xl cursor-pointer">{active ? active : "Add Friend"}</div>
+                                        <div className=" commonButton text-base  md:text-xl my-3   cursor-pointer"> Massage</div>
 
                                    </div>
                               </div>

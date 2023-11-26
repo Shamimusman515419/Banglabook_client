@@ -18,9 +18,9 @@ const MessengerRoute = () => {
 
           }).catch(error => {
                console.log(error);
-          })
+          }) }
 
-     }
+          
 
      return (
           <div className="   gap-4 ">

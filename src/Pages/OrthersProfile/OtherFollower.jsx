@@ -55,7 +55,7 @@ const OtherFollowers = () => {
                                                   <img className=" h-[80px]  border border-blue-500  w-[80px] rounded-lg" src={item?.image} alt="" />
                                                   <div>
                                                        <h1 className="  text-base  md:text-xl font-bold">{item?.name}</h1>
-                                                       <p className=" text-sm md:text-lg "> Bogura Dhaka </p>
+                                                       <p className=" text-sm md:text-lg "> {item?.address} </p>
 
                                                   </div>
                                              </Link>
@@ -82,7 +82,7 @@ const OtherFollowers = () => {
                                                             <img className=" h-[80px]  border border-blue-500  w-[80px] rounded-lg" src={item?.image} alt="" />
                                                             <div>
                                                                  <h1 className="  text-base  md:text-xl font-bold">{item?.name}</h1>
-                                                                 <p className=" text-sm md:text-lg "> Bogura Dhaka </p>
+                                                                 <p className=" text-sm md:text-lg ">  {item?.address} </p>
 
                                                             </div>
                                                        </Link>

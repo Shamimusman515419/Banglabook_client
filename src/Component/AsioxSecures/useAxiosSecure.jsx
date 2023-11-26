@@ -1,20 +1,20 @@
 import { useContext, useEffect } from 'react';
 import axios from 'axios';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Authprovider/Authprovider';
 
 const axiosSecure = axios.create({
-     baseURL: 'http://localhost:5000',
+     baseURL: 'https://banglabook-server.vercel.app',
 });
 
 const useAxiosSecure = () => {
      const { LogOut } = useContext(AuthContext)
-     const navigate = useNavigate(); 
+     const navigate = useNavigate();
 
      useEffect(() => {
           const requestInterceptor = axiosSecure.interceptors.request.use((config) => {
                const token = localStorage.getItem('access-token');
-               if (token) { 
+               if (token) {
                     config.headers.Authorization = `Bearer ${token}`;
                }
                return config;
@@ -35,7 +35,7 @@ const useAxiosSecure = () => {
                axiosSecure.interceptors.request.eject(requestInterceptor);
                axiosSecure.interceptors.response.eject(responseInterceptor);
           };
-     }, [LogOut, navigate,axiosSecure]);
+     }, [LogOut, navigate, axiosSecure]);
 
      return [axiosSecure];
 };

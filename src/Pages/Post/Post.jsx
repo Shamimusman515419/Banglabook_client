@@ -30,7 +30,7 @@ const Post = ({ post }) => {
      const route = useNavigate();
      const [data, refetch, isLoading] = PostApi();
      const [axiosSecure] = useAxiosSecure();
-     const { description, activity, comment, user: userData, PostItem, userImage, _id, like, likeEmail } = post;
+     const { description, email, activity, comment, user: userData, PostItem, userImage, _id, like, likeEmail } = post;
      const [open, setOpen] = useState(false)
      const [isPlaying, setIsPlaying] = useState(false);
      const [openDelete, setOpenDelete] = useState(false)
@@ -55,40 +55,54 @@ const Post = ({ post }) => {
 
      const videoRef = useRef(null);
      // handleDelete function 
-     const handleDelete = (_id) => {
+     const handleDelete = ({ _id, email }) => {
 
-          Swal.fire({
-               title: 'Are you sure?',
-               text: "Do you want to delete the post?",
-               icon: 'warning',
-               showCancelButton: true,
-               confirmButtonColor: '#3085d6',
-               cancelButtonColor: '#d33',
-               confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
-               if (result.isConfirmed) {
-                    axiosSecure.delete(`/post/${_id}`).then(result => {
-                         console.log(result);
-                         if (result.data) {
-                              refetch();
-                              Swal.fire(
-                                   'Deleted!',
-                                   'Your Post has been deleted.',
-                                   'success'
-                              )
-                         }
-                    }).catch(error => {
-                         Swal.fire({
-                              icon: 'error',
-                              title: `${error.massage}`,
-                              text: 'Something went wrong!',
+          if (email === user?.email) {
+               setOpenDelete(true)
+               Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to delete the post?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+               }).then((result) => {
+                    if (result.isConfirmed) {
+                         axiosSecure.delete(`/post/${_id}`).then(result => {
+                              console.log(result);
+                              if (result.data) {
+                                   refetch();
+                                   setOpenDelete(false)
+                                   Swal.fire(
+                                        'Deleted!',
+                                        'Your Post has been deleted.',
+                                        'success'
+                                   )
+                              }
+                         }).catch(error => {
+                              Swal.fire({
+                                   icon: 'error',
+                                   title: `${error.massage}`,
+                                   text: 'Something went wrong!',
+
+                              })
 
                          })
 
-                    })
+                    }
+               })
+          } else {
+               Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Sorry, this is not your post, someone else s post  You cannot delete",
 
-               }
-          })
+               });
+
+
+          }
+
 
 
      }
@@ -139,7 +153,7 @@ const Post = ({ post }) => {
      console.log(showPost);
 
      return (
-          <div className={`shadow-md rounded relative ${open ? " hidden " : "black"}`}>
+          <div className={`shadow-md w-full overflow-hidden rounded relative ${open ? " hidden " : "black"}`}>
 
                <div>
                     {
@@ -155,13 +169,18 @@ const Post = ({ post }) => {
 
                                         <div>
                                              <p>
-                                                  <Link to={'/profile/followers'}> {postInfo?.followers?.length ? postInfo?.followers?.length : 0} followers </Link> •  <Link to={'/profile/followers'}>  {postInfo?.following?.length ? postInfo?.following?.length : 0} following</Link> </p>
+                                                  <Link to={`/otherProfile/profile/${postInfo._id}`} > {postInfo?.followers?.length ? postInfo?.followers?.length : 0} followers </Link> •  <Link to={`/otherProfile/profile/${postInfo._id}`}>  {postInfo?.following?.length ? postInfo?.following?.length : 0} following</Link> </p>
                                         </div>
                                    </div>
 
-                                   <div className="  text-center text-base capitalize   md:text-xl">
+                                   <div className="  text-center text-base textColor capitalize   md:text-lg">
                                         {
                                              postInfo?.address ? <p>{postInfo?.address}</p> : "new user"
+                                        }
+                                   </div>
+                                   <div className="  text-center text-base textColor capitalize   md:text-lg">
+                                        {
+                                             postInfo?.address ? <p>{postInfo?.collage}</p> : ""
                                         }
                                    </div>
 
@@ -169,7 +188,7 @@ const Post = ({ post }) => {
 
 
                               </div>
-                            
+
 
                               <div className=" w-full">
                                    <button className=" w-full secondCommonButton my-3"> Following</button>
@@ -200,7 +219,7 @@ const Post = ({ post }) => {
 
                          </div>
                          <div className={` ${openDelete ? "block" : "hidden"} absolute py-3 px-4  right-4 top-11 bg-white rounded-lg shadow-lg `} >
-                              <div onClick={() => handleDelete(_id)} className=" hover:bg-[#F2F2F2]  rounded-md pt-2 px-2  cursor-pointer flex justify-start items-center gap-3">
+                              <div onClick={() => handleDelete({ _id, email })} className=" hover:bg-[#F2F2F2]  rounded-md pt-2 px-2  cursor-pointer flex justify-start items-center gap-3">
                                    <RiDeleteBin6Line size={18}></RiDeleteBin6Line>
                                    <p className=" text-lg  font-medium"> Delete post</p>
 
@@ -236,7 +255,7 @@ const Post = ({ post }) => {
                          <div>
                               {like >= 0 ? <div className=" cursor-pointer"> {like} Other </div> : ""}
                          </div>
-                         <div>
+                         <div onClick={() => setCommentOpen(!commentOpen)} className=" cursor-pointer">
                               {comment.length >= 0 ? <div> {comment.length} Other comment </div> : ""}
                          </div>
                     </div>

@@ -39,14 +39,14 @@ const Followers = () => {
                     active == 1 ?
                          <div>
                               {
-                                   data[0]?.followingMe?.length > 0 ? <div className=" mt-10 grid md:grid-cols-2 gap-8">  {
-                                        data[0]?.followingMe?.map(item => <div key={item?.email} className=" flex  items-center  gap-2 justify-between  border border-[#0000002b] p-3 rounded-lg">
+                                   data[0]?.followersMe?.length > 0 ? <div className=" mt-10 grid md:grid-cols-2 gap-8">  {
+                                        data[0]?.followersMe?.map(item => <div key={item?.email} className=" flex  items-center  gap-2 justify-between  border border-[#0000002b] p-3 rounded-lg">
 
                                              <Link to={`/otherProfile/profile/${item._id}`} className=" flex items-center gap-2 ">
                                                   <img className=" h-[80px]  border border-blue-500  w-[80px] rounded-lg" src={item?.image} alt="" />
                                                   <div>
                                                        <h1 className="  text-base  md:text-xl font-bold">{item?.name}</h1>
-                                                       <p className=" text-sm md:text-lg "> Bogura Dhaka </p>
+                                                       <p className=" text-sm md:text-lg "> {item?.address} </p>
 
                                                   </div>
                                              </Link>
@@ -64,16 +64,19 @@ const Followers = () => {
                          <div className=" ">
                               <div >
 
+                                  
+
+
                                    <div>
                                         {
-                                             data[0]?.followersMe?.length > 0 ? <div className=" mt-10 grid md:grid-cols-2 gap-8">  {
-                                                  data[0]?.followersMe?.map(item => <div key={item?.email} className=" flex  items-center  gap-2 justify-between  border border-[#0000002b] p-3 rounded-lg">
+                                             data[0]?.followingMe?.length > 0 ? <div className=" mt-10 grid md:grid-cols-2 gap-8">  {
+                                                  data[0]?.followingMe?.map(item => <div key={item?.email} className=" flex  items-center  gap-2 justify-between  border border-[#0000002b] p-3 rounded-lg">
 
                                                        <Link to={`/otherProfile/profile/${item._id}`} className=" flex items-center gap-2 ">
                                                             <img className=" h-[80px]  border border-blue-500  w-[80px] rounded-lg" src={item?.image} alt="" />
                                                             <div>
                                                                  <h1 className="  text-base  md:text-xl font-bold">{item?.name}</h1>
-                                                                 <p className=" text-sm md:text-lg "> Bogura Dhaka </p>
+                                                                 <p className=" text-sm md:text-lg "> {item?.address} </p>
 
                                                             </div>
                                                        </Link>

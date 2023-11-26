@@ -13,7 +13,7 @@ import { useState } from "react";
 
 const SuggestFriend = () => {
      const [axiosSecure] = useAxiosSecure();
-     const { user } = useContext(AuthContext);
+     const { user,userinfo } = useContext(AuthContext);
      const [success, setSuccess] = useState("")
 
      const { data, refetch } = useQuery({
@@ -21,6 +21,8 @@ const SuggestFriend = () => {
           queryFn: () => axios.get('https://banglabook-server.vercel.app/users'),
      })
 
+
+  
      const handleClick = (email) => {
           const fromData = { me: user?.email, friend: email }
           console.log(fromData);
@@ -36,6 +38,9 @@ const SuggestFriend = () => {
           })
 
      }
+     let friendData = userinfo?.following;
+
+     let notMatchingData2 = data?.data?.filter(item => !friendData?.includes(item?.email));
 
      return (
           <div>
@@ -49,7 +54,7 @@ const SuggestFriend = () => {
                     className="mySwiper"
                >
                     {
-                         data?.data && data?.data.map(item => <SwiperSlide key={
+                         notMatchingData2 && notMatchingData2?.map(item => <SwiperSlide key={
                               item._id
                          }>
                               < div className=" cursor-pointer  h-[250px] shadow-xl rounded-xl   relative">

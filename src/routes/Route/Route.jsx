@@ -35,6 +35,7 @@ import About from "../../Pages/Profilepage/About";
 import OtherAbout from "../../Pages/OrthersProfile/OtherAbout";
 import Followers from "../../Pages/Profilepage/followers/Followers";
 import OtherFollowers from "../../Pages/OrthersProfile/OtherFollower";
+import Massage from "../../Component/Massage.jsx/Massage";
 
 const Route = createBrowserRouter([
       {
@@ -45,6 +46,10 @@ const Route = createBrowserRouter([
                   {
                         path: '/',
                         element: <Home></Home>
+                  },
+                  {
+                        path: '/massage',
+                        element: <Massage></Massage>
                   },
                   {
                         path: '/createStory',
