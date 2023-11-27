@@ -3,8 +3,12 @@ import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
-const MediaCard = ({ card, }) => {
-     const [active, setActive] = useState(false)
+const MediaCard = ({ card,handleDelete }) => {
+     const [active, setActive] = useState(false);
+
+   
+
+
      return (
           <div className=' relative my-2'>
                <div >  <div
@@ -21,8 +25,8 @@ const MediaCard = ({ card, }) => {
                     <div>
                          {
                               active ? <div onMouseLeave={() => setActive(false)} onMouseEnter={() => setActive(true)} className="  text-center border bg-white  w-[120px] ml-2 top-1  rounded-md absolute right-1  border-[#0389C9] p-2">
-                                   <button className=' block p-2  text-base hover:bg-[#038ac951]   text-center rounded-md'>Delete</button>
-                                   <button className=' block p-2 px-4 text-base  text-center  rounded-md  hover:bg-[#038ac951]'> Edit</button>
+                                   <button onClick={()=>handleDelete(card?.mediaName)}  className=' block p-2   text-base hover:bg-[#038ac951]   text-center rounded-md'>Delete</button>
+                                  
                               </div> : <></>
                          }
                     </div>

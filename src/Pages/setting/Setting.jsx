@@ -92,6 +92,25 @@ const Setting = () => {
 
      }
 
+
+     const handleDelete = (id) => {
+
+
+          const mediaData = media?.filter(item => item?.mediaName !== id)
+          const fromData = { media: mediaData };
+          console.log(fromData);
+          axiosSecure.patch(`/users/${user?.email}`, fromData).then(result => {
+               if (result) {
+                    setShowModal(false);
+                    toast.success(" update Account");
+                    window.location.reload()
+
+               }
+          })
+          
+     }
+
+
      return (
           <div className=" mt-14 px-2">
                <div>
@@ -117,7 +136,7 @@ const Setting = () => {
                                         {userinfo?.media?.length > 0 ? <div>
 
                                              {
-                                                  userinfo?.media?.map(item => <MediaCard card={item} key={item?.mediaName}></MediaCard>)
+                                                  userinfo?.media?.map(item => <MediaCard handleDelete={handleDelete} card={item} key={item?.mediaName}></MediaCard>)
                                              }
 
                                         </div> : null

@@ -5,6 +5,7 @@ import { AiOutlineSearch, AiOutlineSetting } from "react-icons/ai";
 import { AuthContext } from "../../../Component/Authprovider/Authprovider";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Component/AsioxSecures/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 const Messanger = ({ handleMessage }) => {
@@ -38,9 +39,9 @@ const Messanger = ({ handleMessage }) => {
                               <h1 className=" text-2xl font-bold "> Friends</h1>
                               <p className=" text-lg font-normal my-1"> Start New Conversation</p>
                          </div>
-                         <div className=" cursor-pointer ">
+                         <Link to={'/setting'} className=" cursor-pointer ">
                               <AiOutlineSetting className=" text-blue-500" size={24}></AiOutlineSetting>
-                         </div>
+                         </Link>
                     </div>
 
                     <div className=" my-3">
@@ -51,11 +52,13 @@ const Messanger = ({ handleMessage }) => {
                          </div>
                     </div>
                     <div className=" ">
-                         <h1 className=" text-center textColor text-2xl font-semibold my-2"> inbox </h1>
+                         <h1 className="  textColor text-2xl font-semibold my-2"> inbox </h1>
+                       <hr />
+                      
                          <div className="  overflow-y-auto h-[80vh] ">
 
                               <div>
-                                   {Friend && Friend.map(item => <div onClick={() => handleMessage(item?.email)} className=" my-5   cursor-pointer p-2 rounded-lg  hover:bg-[#6a6868ad] " key={item._id} >
+                                   {Friend && Friend.map(item => <div onClick={() => handleMessage(item?.email)} className=" my-5   cursor-pointer p-2 rounded-lg  hover:bg-[#6a6868ad] " key={item?._id} >
                                         <div className=" flex gap-2 items-center ">
                                              <img className=" h-10 w-10 rounded-full object-cover " src={item?.image} alt="" />
                                              <h1 className=" text-xl font-semibold "> {item?.name} </h1>

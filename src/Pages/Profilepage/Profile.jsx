@@ -9,24 +9,32 @@ import toast, { Toaster } from "react-hot-toast";
 import { FadeLoader } from "react-spinners";
 import useAxiosSecure from "../../Component/AsioxSecures/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { FaRegCopy } from "react-icons/fa";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { useEffect } from "react";
 
 
 
 const Profile = () => {
      const [axiosSecure] = useAxiosSecure();
 
-     const { user, updateProfilePhoto , userinfo} = useContext(AuthContext);
+     const [copied, setCopied] = useState(false);
+     const { user, updateProfilePhoto, userinfo } = useContext(AuthContext);
      const [showModal, setShowModal] = useState(false);
      const [open, setOpen] = useState(false);
+     const [openCopy, setOpenCopy] = useState(false)
      const [imageLoading, setImageLoading] = useState(false);
      const [image, setImage] = useState(false);
      const [CoverPhoto, setCoverPhoto] = useState("");
-
+     const [value, setValue] = useState("");
      const { data, refetch, isLoading } = useQuery({
           queryKey: ['user'],
           queryFn: () => axiosSecure(`/user/${user?.email}`)
      })
-
+     const handleCopy = () => {
+          setCopied(true);
+     };
      const userData = data?.data;
 
      console.log(userData);
@@ -46,6 +54,9 @@ const Profile = () => {
                }
           })
      }
+     useEffect(() => {
+          setValue(`https://banglabook-92cb9.web.app/otherProfile/profile/${userinfo?._id}`)
+     }, [userinfo])
 
      const name = user?.displayName;
      const updateProfile = () => {
@@ -103,6 +114,8 @@ const Profile = () => {
                <div>
                     <div className="">
 
+
+
                          <div className=" md:mt-3 -mt-8  relative ">
                               <div className="  relative ">
                                    {
@@ -141,16 +154,41 @@ const Profile = () => {
                     </div>
                     <hr className=" my-2 border" />
 
-                    <div className=" flex items-center justify-between">
+
+
+                    <div className=" flex sm:items-center justify-between w-full ">
                          <div className=" flex  items-center  flex-wrap gap-4 md:gap-6">
                               <NavLink to={'/profile/post'} className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>Post</NavLink>
-                              <NavLink to={'/profile/about'}className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>About</NavLink>
+                              <NavLink to={'/profile/about'} className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>About</NavLink>
                               <NavLink to={'/profile/photo'} className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>Photo</NavLink>
                               <NavLink to={'/profile/video'} className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>Video</NavLink>
                               <NavLink to={'/profile/followers'} className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>Followers</NavLink>
                          </div>
-                         <div className="md:block hidden only:  bg-[#d2cdcd] p-3 rounded-full ">
-                              <FiMoreHorizontal stitchTiles={28}></FiMoreHorizontal>
+                         <div className="   relative cursor-pointer">
+                              <div onClick={() => setOpenCopy(true)} className=" only:bg-[#d2cdcd] p-2 md:p-3 rounded-full ">
+                                   <FiMoreHorizontal stitchTiles={28}></FiMoreHorizontal>
+                              </div>
+                              {
+                                   openCopy ? <div className=" flex  items-center gap-2 right-5  justify-between  absolute top-1 boxshadow bg-white p-2 px-4 rounded-md">
+                                        {
+                                             copied ? <p className=" text-red-500 text-base  md:text-lg font-medium">   Copied</p> : <CopyToClipboard text={value} onCopy={handleCopy}>
+
+                                                  <div className=" flex items-center w-full gap-3 ">
+
+                                                       <FaRegCopy className=" cursor-pointer textColor" size={25} />
+                                                  </div>
+                                             </CopyToClipboard>
+                                        }
+
+
+                                        <div onClick={() => setOpenCopy(false)} >
+                                             <IoMdCloseCircleOutline  size={24} />
+                                        </div>
+                                   </div> : null
+                              }
+
+
+
                          </div>
                     </div>
                     <div className="p-1 md:p-3">
@@ -167,16 +205,16 @@ const Profile = () => {
                                    <div>
                                         <h1 className=" text-xl font-medium text-center text-blue-400 my-7"> Change Your Profile</h1>
 
-                                        <div className=" flex justify-center items-center  h-[300px]">
+                                        <div className=" flex justify-center cursor-pointer items-center  h-[300px]">
 
                                              {
-                                                  image ? <img className="  object-cover h-[250px] w-[250px]  border  border-blue-600 rounded-full" src={image} alt="" /> :
+                                                  image ? <img className="   object-cover h-[250px] w-[250px]  border  border-blue-600 rounded-full" src={image} alt="" /> :
 
                                                        <div>
                                                             {
                                                                  <div>
                                                                       {
-                                                                           imageLoading ? <FadeLoader color="#36d7b7" /> : <label htmlFor="profile">   <CgProfile className=" text-blue-500" size={50}></CgProfile>
+                                                                           imageLoading ? <FadeLoader color="#36d7b7" /> : <label htmlFor="profile">   <CgProfile className=" text-blue-500 cursor-pointer " size={50}></CgProfile>
 
                                                                                 <input onChange={handleimage} type="file" className=" hidden" name="" id="profile" />
 
@@ -203,7 +241,7 @@ const Profile = () => {
                                              type="button"
 
                                         >
-                                             Post
+                                             Save
                                         </button>
                                         <Toaster
                                              position="top-center"

@@ -6,11 +6,13 @@ import { useEffect } from "react";
 import useAxiosSecure from "../../../Component/AsioxSecures/useAxiosSecure";
 import NotFound from "../../../Component/PostNotFoun/NotFound";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 
 const Followers = () => {
      const { user, userinfo } = useContext(AuthContext);
-     const [active, setActive] = useState(1);
+     const [active, setActive] = useState(2);
      const [data, setData] = useState([]);
      const [axiosSecure] = useAxiosSecure()
 
@@ -23,6 +25,46 @@ const Followers = () => {
 
      })
      console.log(data);
+
+
+     const handleDelete = (email) => {
+          console.log(email);
+          Swal.fire({
+               title: 'Are you sure?',
+               text: "Want to unfriend this friend of yours",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#3085d6',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+               if (result.isConfirmed) {
+                    axiosSecure.patch(`/follower?email=${user?.email}`, { email }).then(result => {
+                         console.log(result);
+                         if (result) {
+                              Swal.fire(
+                                   'Deleted!',
+                                   'Your friend has been deleted.',
+                                   'success'
+                              )
+
+                         }
+
+                    }).catch((e) => {
+                         Swal.fire({
+                              icon: 'error',
+                              title: `${e.massage}`,
+                              text: 'Something went wrong!',
+
+                         })
+                    })
+
+
+               }
+          })
+
+     }
+
 
      return (
           <div className=" postShadwo min-h-[80vh] p-4 rounded-lg ">
@@ -64,7 +106,7 @@ const Followers = () => {
                          <div className=" ">
                               <div >
 
-                                  
+
 
 
                                    <div>
@@ -81,7 +123,7 @@ const Followers = () => {
                                                             </div>
                                                        </Link>
 
-                                                       <div className=" cursor-pointer ">
+                                                       <div onClick={() => handleDelete(item?.email)} className=" cursor-pointer ">
                                                             <BsThreeDots size={30} />
                                                        </div>
 

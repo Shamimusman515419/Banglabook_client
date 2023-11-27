@@ -6,6 +6,7 @@ import NotFound from "../../Component/PostNotFoun/NotFound";
 import PostApi from "../../Component/Api/PostApi";
 import { TbWorld } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { FaGraduationCap } from "react-icons/fa";
 
 const About = () => {
      const { user, userinfo } = useContext(AuthContext);
@@ -56,8 +57,23 @@ const About = () => {
                     <div>
                          {
                               userinfo?.address ? <div className=" postShadwo p-3 rounded-md">
-                                   <h1 className=" text-center text-base md:text-2xl   font-medium text-black "> {userinfo?.address} </h1>
 
+                                   <h1 className=" text-lg textColor  md:text-2xl font-medium"> Address</h1>
+                                   <h1 className="  text-sm md:text-lg  secondColor  font-medium text-black "> {userinfo?.address} </h1>
+
+                              </div> : null
+                         }
+                    </div>
+                    <div>
+                         {
+                              userinfo?.collage ? <div className=" postShadwo p-3 rounded-md">
+
+                                   <h1 className=" text-lg textColor  md:text-2xl font-medium"> Collage</h1>
+                                   <div className=" flex items-center gap-2  mt-4">
+                                        <FaGraduationCap className=" textColor" size={28} />
+                                        <h1 className="  text-sm md:text-lg  secondColor  font-medium text-black "> {userinfo?.collage} </h1>
+
+                                   </div>
                               </div> : null
                          }
                     </div>

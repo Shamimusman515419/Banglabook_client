@@ -28,7 +28,7 @@ const Gallery = () => {
                </div>
 
                <div className=" grid grid-cols-3 gap-3">
-                    {Story.slice(0,9).map(item=> <div key={item._id}> 
+                    {Story.slice(0,9).map(item=> <div key={item?._id}> 
                      <img className="  w-full h-[120px]  rounded-md"  src={item?.storyImage} alt="" />
                      
                     </div>)}

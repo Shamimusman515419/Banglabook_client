@@ -49,7 +49,7 @@ const YourFriend = () => {
           <div className=" grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-6">
                {
                     data && data?.map(item => <div key={
-                         item._id
+                         item?._id
                     }>
                          <div className="   p-2  shadow-md boxshadow   relative ">
 

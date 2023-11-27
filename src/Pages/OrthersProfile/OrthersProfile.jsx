@@ -1,19 +1,24 @@
 
 import { FiMoreHorizontal } from "react-icons/fi";
-
-
-import { NavLink, Outlet, useParams, } from "react-router-dom";
+import { Link, NavLink, Outlet, useParams, } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Component/AsioxSecures/useAxiosSecure";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Component/Authprovider/Authprovider";
 import toast from "react-hot-toast";
+import { FaRegCopy } from "react-icons/fa";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import { useEffect } from "react";
+import CopyToClipboard from "react-copy-to-clipboard";
 
 
 const OtherProfile = () => {
+     const [value, setValue] = useState("");
+     const [copied, setCopied] = useState(false);
      const [axiosSecure] = useAxiosSecure();
      const [active, setActive] = useState("")
      const params = useParams();
+     const [openCopy, setOpenCopy] = useState(false)
      const { user } = useContext(AuthContext)
      console.log(params);
      const { data, refetch, isLoading } = useQuery({
@@ -24,7 +29,7 @@ const OtherProfile = () => {
      const userData = data?.data;
 
      const handleClick = (email) => {
-          const fromData = { me: user?.email, friend:email }
+          const fromData = { me: user?.email, friend: email }
           console.log(fromData);
           axiosSecure.post('/follower', fromData).then(result => {
                console.log(result);
@@ -38,6 +43,13 @@ const OtherProfile = () => {
           })
 
      }
+     const handleCopy = () => {
+          setCopied(true);
+     };
+
+     useEffect(() => {
+          setValue(`banglabook-92cb9.web.app/otherProfile/profile/${userData?._id}`)
+     }, [userData])
 
      return (
           <div className=" w-full md:mr-10 mr-1 md:px-20 md:-mt-10 ">
@@ -65,7 +77,7 @@ const OtherProfile = () => {
                                    </div>
                                    <div className=" mt-7 md:mt-0  sm:flex  items-center  gap-1 text-center   ">
                                         <div onClick={() => handleClick(userData?.email)} className="commonButton   my-3 text-base  md:text-xl cursor-pointer">{active ? active : "Add Friend"}</div>
-                                        <div className=" commonButton text-base  md:text-xl my-3   cursor-pointer"> Massage</div>
+                                        <Link to={'/messenger'} className=" commonButton text-base  md:text-xl my-3   cursor-pointer"> Massage</Link>
 
                                    </div>
                               </div>
@@ -85,8 +97,31 @@ const OtherProfile = () => {
                               <NavLink to={`/otherProfile/profile/${params?.id}/video/${params?.id}`} className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>Video</NavLink>
                               <NavLink to={`/otherProfile/profile/${params?.id}/followers/${params?.id}`} className={({ isActive }) => isActive ? "text-lg font-medium text-blue-400" : "text-lg font-medium"}>Followers</NavLink>
                          </div>
-                         <div className="md:block hidden only:  bg-[#d2cdcd] p-3 rounded-full ">
-                              <FiMoreHorizontal stitchTiles={28}></FiMoreHorizontal>
+                         <div className="   relative cursor-pointer">
+                              <div onClick={() => setOpenCopy(true)} className=" only:bg-[#d2cdcd] p-2 md:p-3 rounded-full ">
+                                   <FiMoreHorizontal stitchTiles={28}></FiMoreHorizontal>
+                              </div>
+                              {
+                                   openCopy ? <div className=" flex  items-center gap-2 right-5  justify-between  absolute top-1 boxshadow bg-white p-2 px-4 rounded-md">
+                                        {
+                                             copied ? <p className=" text-red-500 text-base  md:text-lg font-medium">   Copied</p> : <CopyToClipboard text={value} onCopy={handleCopy}>
+
+                                                  <div className=" flex items-center w-full gap-3 ">
+
+                                                       <FaRegCopy className=" cursor-pointer textColor" size={25} />
+                                                  </div>
+                                             </CopyToClipboard>
+                                        }
+
+
+                                        <div onClick={() => setOpenCopy(false)} >
+                                             <IoMdCloseCircleOutline size={24} />
+                                        </div>
+                                   </div> : null
+                              }
+
+
+
                          </div>
                     </div>
                     <div className="p-1 md:p-3">

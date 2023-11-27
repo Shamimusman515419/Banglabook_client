@@ -20,13 +20,15 @@ const auth = getAuth(app)
 
 
 const AuthProvider = ({ children }) => {
+   
      const [loading, setLoading] = useState(true)
      const [user, setUser] = useState(null);
      const [userinfo, setUserinfo] = useState(null);
      const [searchBarOpen, setSearchBarOpen] = useState(false)
-     const [commonLoader,setCommonLoader] = useState(false)
+     const [commonLoader, setCommonLoader] = useState(false)
      const FacebookProvider = new FacebookAuthProvider();
      const GoogleProvider = new GoogleAuthProvider();
+     const [currentStory, setCurrentStory] = useState(false)
      const createUser = (email, password) => {
           return createUserWithEmailAndPassword(auth, email, password)
      }
@@ -103,17 +105,18 @@ const AuthProvider = ({ children }) => {
      }, []);
 
 
+
      const authInfo = {
           createUser,
           updateUserProfile,
           GoogleLogin, FacebookLogin,
           verifyUser,
           updateProfilePhoto,
-          Login,commonLoader,setCommonLoader,
+          Login, commonLoader, setCommonLoader,
           loading,
           user, searchBarOpen, setSearchBarOpen,
-          userinfo,
-          LogOut
+          userinfo, currentStory, setCurrentStory,
+          LogOut, 
      }
      return (
           <div>

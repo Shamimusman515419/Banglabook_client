@@ -14,30 +14,23 @@ import Gallery from "./Gallary/Gallary";
 import Games from "../Games/Games";
 import Messanger from "../Massanger/Massanger";
 
-import { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
+import { useState } from "react";
 
-
-
-// import required modules
-import { Navigation } from 'swiper/modules';
 import ChatBox from "../Massanger/ChatBox";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Component/AsioxSecures/useAxiosSecure";
+
 const Home = () => {
    const [openMessanger, setOpenmessanger] = useState(false);
-   const [axiosSecure] = useAxiosSecure();
    const [currentUser, setCurrentUser] = useState("")
+   const [axiosSecure] = useAxiosSecure();
+
    const [data, refetch, isLoading] = PostApi();
 
-   const [story, setStory] = useState([]);
+
    let PostData = data?.data.sort((a, b) => new Date(b.date) - new Date(a.date));
-   const handleMessage = (eamil) => {
-      console.log(eamil);
-      axiosSecure.get(`/user/${eamil}`).then(result => {
+   const handleMessage = (email) => {
+      console.log(email);
+      axiosSecure.get(`/user/${email}`).then(result => {
          setCurrentUser(result.data)
          setOpenmessanger(true)
       }).catch(error => {

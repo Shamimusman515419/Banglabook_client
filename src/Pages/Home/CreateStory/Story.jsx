@@ -9,9 +9,15 @@ import { FreeMode, Pagination } from 'swiper/modules';
 import StoryCard from './StoryCard';
 import CreateStory from './CreateStory';
 
+import { useContext } from 'react';
+import { AuthContext } from '../../../Component/Authprovider/Authprovider';
+
+
 const Story = () => {
- 
-  const [Story, setStory] = useState([])
+
+  const [Story, setStory] = useState([]);
+
+  const {setCurrentStory}=useContext(AuthContext)
   useEffect(() => {
     fetch('https://banglabook-server.vercel.app/story').then(res => res.json()).then(data => {
       const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -59,9 +65,9 @@ const Story = () => {
           <CreateStory></CreateStory>
         </SwiperSlide>
         {
-          Story && Story?.map((item, index) => <SwiperSlide key={index}>
+          Story && Story?.map((item, index) => <SwiperSlide onClick={()=>setCurrentStory(index)} key={index}>
 
-            <StoryCard  Story={item}></StoryCard>
+            <StoryCard Story={item}></StoryCard>
           </SwiperSlide>)
         }
 
