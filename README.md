@@ -15,4 +15,6 @@ Firebase, Express.JS, MongoDB, Swiper
 
 Photo 
 
-<ima src="https://i.ibb.co/2vYsRnQ/Screenshot-2023-11-28-123326.png" align="center" height="1000px" width="100%" >
+
+ <img   align="center" src="https://i.ibb.co/2vYsRnQ/Screenshot-2023-11-28-123326.png" width="100%" alt="">
+    
