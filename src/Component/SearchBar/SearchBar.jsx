@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 
 const SearchBar = () => {
-     const { setSearchBarOpen } = useContext(AuthContext)
+     const { setSearchBarOpen,user } = useContext(AuthContext)
      const [alluser, setAlluser] = useState([])
 
      const [searchName, setSearchName] = useState("")
@@ -29,7 +29,7 @@ const SearchBar = () => {
 
      }, [searchName])
 
-
+     const Friend = alluser?.filter(item => item.email !== user?.email);
      return (
           <div className="  max-w-[300px]">
 
@@ -49,9 +49,9 @@ const SearchBar = () => {
 
                <div className="   h-[80vh]   overflow-y-auto  border-black border-b-2 ">
                     {
-                         alluser && alluser?.length > 0 ? (<div>
+                         Friend && Friend?.length > 0 ? (<div>
                               {
-                                   alluser?.map(item => <div onClick={() => setSearchBarOpen(false)} key={item?._id}> <Link to={`/otherProfile/profile/${item?._id}`} className="  py-2 px-3 hover:bg-[#00000027]  rounded-md mt-2 cursor-pointer  gap-2  flex  items-center">
+                                   Friend?.map(item => <div onClick={() => setSearchBarOpen(false)} key={item?._id}> <Link to={`/otherProfile/profile/${item?._id}`} className="  py-2 px-3 hover:bg-[#00000027]  rounded-md mt-2 cursor-pointer  gap-2  flex  items-center">
 
                                         <div>
                                              <img className=" h-10 w-10 rounded-full " src={item?.image} alt="" />

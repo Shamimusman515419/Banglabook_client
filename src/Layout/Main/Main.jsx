@@ -2,7 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 import Navber from "../../Share/Navber/Navber";
 
 import { LuVideo } from 'react-icons/lu';
-
+import { IoSettingsOutline } from "react-icons/io5";
 import Container from "../../Component/Container/Container";
 import { AiFillCalendar, AiOutlineStar, AiOutlineUsergroupAdd } from "react-icons/ai";
 import { TiWeatherPartlySunny } from "react-icons/ti";
@@ -29,7 +29,7 @@ const Main = () => {
                                              </div>
                                              <hr />
                                              <div className="bg-[#1590CB]  rounded  p-4  ">
-                                                  <Link  to={'/video'}>
+                                                  <Link to={'/video'}>
                                                        <LuVideo className="iconSize   "></LuVideo>
                                                   </Link>
 
@@ -66,8 +66,9 @@ const Main = () => {
                                                   </Link>
                                              </div>
                                              <div className="bg-[#1590CB]  rounded p-4 ">
-                                                  <Link>
-                                                       <IoLogoGameControllerB className="iconSize  text-white"></IoLogoGameControllerB>
+                                                  <Link  to={'/setting'}>
+                                                       <IoSettingsOutline className="iconSize  text-white" />
+                                                    
                                                   </Link>
                                              </div>
 
@@ -77,7 +78,7 @@ const Main = () => {
                               </Container>
                          </div>
                          <div className=" w-full">
-                         <Outlet></Outlet>
+                              <Outlet></Outlet>
                          </div>
                     </div>
                     <div className="  md:hidden fixed  left-0 right-0 bottom-0  ">

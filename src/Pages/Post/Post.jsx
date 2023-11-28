@@ -1,10 +1,9 @@
 
-import { FaRegCommentDots, FaRegHeart } from "react-icons/fa";
+import { FaRegCommentDots, FaRegCopy, FaRegHeart } from "react-icons/fa";
 
 
 import { FiX, FiMoreHorizontal } from 'react-icons/fi';
 import { PiShareFatBold } from 'react-icons/pi';
-
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { BiEdit } from 'react-icons/bi';
 import { BsBookmark, BsEmojiFrown } from 'react-icons/bs';
@@ -19,17 +18,19 @@ import { AuthContext } from "../../Component/Authprovider/Authprovider";
 import Comment from "./Comment";
 import { Link, useNavigate } from "react-router-dom";
 import EditPost from "./EditPost";
+import CopyToClipboard from "react-copy-to-clipboard";
 
 
 
 
 const Post = ({ post }) => {
 
-
+     const [value, setValue] = useState("");
      const { user } = useContext(AuthContext);
      const [showPost, setShopPost] = useState(false)
      const LikeUser = user?.email;
      const route = useNavigate();
+     const [show, setShow] = useState(false)
      const [data, refetch, isLoading] = PostApi();
      const [axiosSecure] = useAxiosSecure();
      const { description, email, activity, comment, user: userData, PostItem, userImage, _id, like, likeEmail } = post;
@@ -55,7 +56,9 @@ const Post = ({ post }) => {
                console.log(error.massage);
           })
      }
-
+     const handleCopy = () => {
+          setOpenDelete(false);
+     };
      const videoRef = useRef(null);
      // handleDelete function 
      const handleDelete = ({ _id, email }) => {
@@ -222,7 +225,7 @@ const Post = ({ post }) => {
 
 
                               </div>
-                              <div className={` ${openDelete ? "block" : "hidden"} absolute py-3 px-4  right-4 top-11 bg-white rounded-lg shadow-lg `} >
+                              <div className={` ${openDelete ? "block" : "hidden"} absolute py-3 px-4  z-50 right-4 top-11 bg-white rounded-lg shadow-lg `} >
                                    {user?.email == postInfo?.email ? <div onClick={() => handleDelete({ _id, email })} className=" hover:bg-[#F2F2F2]  rounded-md pt-2 px-2  cursor-pointer flex justify-start items-center gap-3">
                                         <RiDeleteBin6Line size={18}></RiDeleteBin6Line>
                                         <p className=" text-lg  font-medium"> Delete post</p>
@@ -232,11 +235,16 @@ const Post = ({ post }) => {
 
 
                                    <hr className=" my-2" />
-                                   <div className=" hover:bg-[#F2F2F2]  rounded-md p-1 px-2  cursor-pointer flex justify-start items-center gap-3">
-                                        <BsBookmark size={18}></BsBookmark>
-                                        <p className=" text-lg  font-medium"> Save post</p>
+                                   <CopyToClipboard text={`https://banglabook-92cb9.web.app/post/${_id}`} onCopy={handleCopy}>
+                                        <div className=" hover:bg-[#F2F2F2]  rounded-md p-1 px-2  cursor-pointer flex justify-start items-center gap-3">
 
-                                   </div>
+
+
+                                             <FaRegCopy size={18} />
+                                             <p className=" text-lg  font-medium"> Copy  Link</p>
+
+                                        </div>
+                                   </CopyToClipboard>
                                    <hr className=" my-2" />
                                    {
                                         user?.email == postInfo?.email ? <div onClick={() => setOpenEdit(true)} className=" hover:bg-[#F2F2F2]  rounded-md pb-2 px-2  cursor-pointer flex justify-start items-center gap-3">
@@ -252,11 +260,14 @@ const Post = ({ post }) => {
                     </div>
 
                     <div className=" w-full ">
-                         <p className=" text-black text-sm md:text-base font-medium">{description} </p>
 
-                         {
-                              post?.video ? <video className="  w-full h-[500px] overflow-hidden my-2 object-cover" ref={videoRef} controls={isPlaying} muted loop ref={videoRef} controls={isPlaying} >   <source src={post?.video} type="video/mp4"></source> </video> : <img className=" w-full max-h-[400px] my-2 object-cover" src={post?.image} alt="" />
-                         }
+                         <div className=' text-black text-sm md:text-base font-medium'>  {show ? description : description.slice(0, 80)}    {show ? <span onClick={() => setShow(false)} className="  textColor ml-4 font-semibold cursor-pointer ">Show less</span> : <span onClick={() => setShow(true)} className="  textColor ml-4 font-semibold cursor-pointer"> {description?.length >= 80 ? "Show More" : ""} </span>} </div>
+
+                         <Link className=" cursor-pointer" to={`/post/${_id}`}>
+                              {
+                                   post?.video ? <video className="  w-full h-[500px] overflow-hidden my-2 object-cover" ref={videoRef} controls={isPlaying} muted loop ref={videoRef} controls={isPlaying} >   <source src={post?.video} type="video/mp4"></source> </video> : <img className=" w-full max-h-[400px] my-2 object-cover" src={post?.image} alt="" />
+                              }
+                         </Link>
 
                     </div>
 

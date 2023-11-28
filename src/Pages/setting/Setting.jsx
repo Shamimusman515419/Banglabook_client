@@ -3,7 +3,7 @@ import { AuthContext } from "../../Component/Authprovider/Authprovider";
 import { useState } from "react";
 import useAxiosSecure from "../../Component/AsioxSecures/useAxiosSecure";
 import toast, { Toaster } from "react-hot-toast";
-import { FaLink } from "react-icons/fa";
+import { FaLink, FaRegEdit } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import MediaCard from "./MediaCard";
 import { CgProfile } from "react-icons/cg";
@@ -20,22 +20,38 @@ const Setting = () => {
      const [mediaName, setMediaName] = useState("Facebook");
      const [showModal, setShowModal] = useState(false);
      const [mediaLink, setMediaLink] = useState(null);
-
+     const [openShow, setOpenShow] = useState(false);
+     const [name, setName] = useState("")
      const media = userinfo?.media;
+     console.log(media, "ddddddddd");
+
+     const media2 = [media]
      const handleLink = () => {
           const data = { mediaName, mediaLink };
+          if (media) {
+               const mediaData = [...media, data]
+               const fromData = { media: mediaData }
+               axiosSecure.patch(`/users/${user?.email}`, fromData).then(result => {
+                    if (result) {
+                         setShowModal(false);
+                         toast.success(" update Account");
+                         window.location.reload()
 
+                    }
+               })
+          } else {
 
-          const mediaData = [...media, data]
-          const fromData = { media: mediaData }
-          axiosSecure.patch(`/users/${user?.email}`, fromData).then(result => {
-               if (result) {
-                    setShowModal(false);
-                    toast.success(" update Account");
-                    window.location.reload()
+               const fromData = { media: data }
+               axiosSecure.patch(`/users/${user?.email}`, fromData).then(result => {
+                    if (result) {
+                         setShowModal(false);
+                         toast.success(" update Account");
+                         window.location.reload()
 
-               }
-          })
+                    }
+               })
+          }
+
 
      };
 
@@ -77,21 +93,33 @@ const Setting = () => {
           axiosSecure.patch(`/users/${user?.email}`, { image }).then(result => {
                if (result) {
                     updateProfilePhoto(name, image).then(result => {
-                         setOpen(false)
+                         setOpenShow(false)
                          toast.success(" Update Profile")
-
                     }).catch(error => {
-
                          toast.error(error.massage)
                     })
                }
-
           }).catch(error => {
                toast.error(error.massage)
           })
 
      }
 
+     const handleName = () => {
+          const image = user?.photoURL;
+          axiosSecure.patch(`/users/${user?.email}`, { name }).then(result => {
+               if (result) {
+                    updateProfilePhoto(name, image).then(result => {
+                         setOpenShow(false)
+                         toast.success(" Update Profile")
+                    }).catch(error => {
+                         toast.error(error.massage)
+                    })
+               }
+          }).catch(error => {
+               toast.error(error.massage)
+          })
+     }
 
      const handleDelete = (id) => {
 
@@ -107,7 +135,7 @@ const Setting = () => {
 
                }
           })
-          
+
      }
 
 
@@ -119,13 +147,72 @@ const Setting = () => {
                          <div className="  w-full  py-2 px-4 rounded-lg bg-[#CCCFD2] flex justify-between  items-center gap-2  ">
                               <div className=" flex items-center gap-2">
                                    <img className=" object-cover w-16 h-16 rounded-full  border-2 border-[#0389C9]" src={user?.photoURL} alt="" />
-                                   <h1 className=" text-sm  md:text-xl "> {user?.displayName} </h1>
+                                   <h1 className=" text-lg font-bold  md:text-xl "> {user?.displayName} </h1>
+                                   <FaRegEdit className=" ml-2 cursor-pointer  textColor" onClick={() => setOpenShow(true)} size={24} />
                               </div>
 
                               <div>
                                    <button onClick={setOpen} className="  text-sm md:text-xl  rounded-lg px-4 py-2 bgColor">Change profile</button>
                               </div>
                          </div>
+
+          
+
+
+                         {openShow ? (
+                              <>
+                                   <div
+                                        className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                                   >
+                                        <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                                             {/*content*/}
+                                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                                  {/*header*/}
+                                                  <div className="flex items-center  p-5 text-center   rounded-t">
+                                                       <h1 className="  mx-auto font-bold text-[#0389C9] text-center  text-xl">Edit Your name</h1>
+
+                                                  </div>
+                                                  {/*body*/}
+                                                  <div className="relative p-6 w-full md:min-w-[600px] flex-auto">
+
+                                                       <div className="  w-full rounded-lg  ">
+
+                                                            <div>
+                                                                 <h1 className=" textColor text-start text-base  md:text-xl  font-medium my-3"> lest name And Fist Name</h1>
+                                                                 <input defaultValue={user?.displayName} onChange={(e) => setName(e.target.value)} className=" rounded-lg  col-span-2 p-2 w-full border outline-none  border-[#0389C9]" name="" placeholder="Ex: Shamim Hossain"></input>
+                                                            </div>
+                                                       </div>
+
+
+                                                  </div>
+                                                  {/*footer*/}
+                                                  <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                                                       <button
+                                                            className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                            type="button"
+                                                            onClick={() => setOpenShow(false)}
+                                                       >
+                                                            Close
+                                                       </button>
+                                                       <button disabled={!name}
+                                                            className="bg-[#0389C9] disabled:bg-[#038ac952] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                            type="button"
+                                                            onClick={handleName}
+                                                       >
+                                                            Submit
+                                                       </button>
+                                                       <Toaster
+                                                            position="top-center"
+                                                            reverseOrder={true}
+                                                       />
+                                                  </div>
+                                             </div>
+                                        </div>
+                                   </div>
+                                   <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                              </>
+                         ) : null}
+
 
                          <div>
                               <div className=" mt-10 ">

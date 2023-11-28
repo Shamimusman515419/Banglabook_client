@@ -36,6 +36,7 @@ import OtherAbout from "../../Pages/OrthersProfile/OtherAbout";
 import Followers from "../../Pages/Profilepage/followers/Followers";
 import OtherFollowers from "../../Pages/OrthersProfile/OtherFollower";
 import Massage from "../../Component/Massage.jsx/Massage";
+import SinglePost from "../../Pages/Home/SinglePost/SinglePost";
 
 const Route = createBrowserRouter([
       {
@@ -54,6 +55,11 @@ const Route = createBrowserRouter([
                   {
                         path: '/createStory',
                         element: <CreateStoryText></CreateStoryText>
+
+                  },
+                  {
+                        path: '/post/:id',
+                        element: <SinglePost></SinglePost>
 
                   },
 
@@ -147,7 +153,7 @@ const Route = createBrowserRouter([
                                     path: '/otherProfile/profile/:id/followers/:id',
                                     element: <OtherFollowers></OtherFollowers>
                               },
-                              
+
                         ]
 
 

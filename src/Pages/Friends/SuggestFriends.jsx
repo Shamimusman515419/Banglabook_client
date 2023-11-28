@@ -18,12 +18,12 @@ const SuggestFriends = () => {
      
    
       
-     
+    const Friend = notMatchingData2?.filter(item => item.email !== userinfo?.email);
 
      return (
           <div className=" grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-6">
                {
-                    notMatchingData2 && notMatchingData2?.map(item => <FriendCard key={item._id} data={item}></FriendCard>)
+                    Friend && Friend?.map(item => <FriendCard key={item._id} data={item}></FriendCard>)
                }
           </div>
      );

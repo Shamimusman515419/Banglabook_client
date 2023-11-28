@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import {  useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -8,18 +8,23 @@ import useAxiosSecure from "../../Component/AsioxSecures/useAxiosSecure";
 import NotFound from "../../Component/PostNotFoun/NotFound";
 
 
+
 const OtherFollowers = () => {
      const [axiosSecure] = useAxiosSecure()
      const params = useParams();
+ 
      console.log(params);
      const { data, refetch, isLoading } = useQuery({
           queryKey: ['user'],
           queryFn: () => axiosSecure(`/userId/${params?.id}`)
      })
 
+   
 
 
-     const [active, setActive] = useState(1);
+
+
+     const [active, setActive] = useState(2);
      const [dataFriend, setDataFriend] = useState([]);
 
 
@@ -37,8 +42,8 @@ const OtherFollowers = () => {
           <div className=" postShadwo min-h-[80vh] p-4 rounded-lg ">
 
                <div className=" flex my-6  gap-5 items-center">
-                    <div onClick={() => setActive(1)} className={` ${active == 1 ? "  text-blue-500  cursor-pointer text-base md:text-xl font-normal    " : " text-black  cursor-pointer text-base md:text-xl "} `}> Followers </div>
-                    <div onClick={() => setActive(2)} className={` ${active == 2 ? "  text-blue-500  cursor-pointer  text-base md:text-xl font-normal    " : " text-black text-base  cursor-pointer md:text-xl "}  `}> Following </div>
+                    <div onClick={() => setActive(2)} className={` ${active == 2 ? "  text-blue-500  cursor-pointer text-base md:text-xl font-normal    " : " text-black  cursor-pointer text-base md:text-xl "} `}>Followers  </div>
+                    <div onClick={() => setActive(1)} className={` ${active == 1 ? "  text-blue-500  cursor-pointer  text-base md:text-xl font-normal    " : " text-black text-base  cursor-pointer md:text-xl "}  `}> Following  </div>
                </div>
 
 

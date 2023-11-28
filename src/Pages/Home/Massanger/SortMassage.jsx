@@ -40,9 +40,9 @@ const SortMassage = ({ data }) => {
 
 
                     </div>
-
-                    <div className=" ml-10">
-                         <h1 className="  px-4 py-1 rounded-xl text-lg font-normal"> {data?.massage} </h1>
+                  
+                    <div className=" ml-10  rounded-xl  ">
+                         <h1 className=" w-[90%]    px-4 py-1 rounded-xl text-base font-normal"> {data?.massage} </h1>
                     </div>
                </div>
 

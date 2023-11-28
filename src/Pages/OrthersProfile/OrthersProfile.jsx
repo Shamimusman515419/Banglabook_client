@@ -18,8 +18,9 @@ const OtherProfile = () => {
      const [axiosSecure] = useAxiosSecure();
      const [active, setActive] = useState("")
      const params = useParams();
+     const [matchEmail, setMatchEmail] = useState("")
      const [openCopy, setOpenCopy] = useState(false)
-     const { user } = useContext(AuthContext)
+     const { user, userinfo } = useContext(AuthContext)
      console.log(params);
      const { data, refetch, isLoading } = useQuery({
           queryKey: ['user'],
@@ -48,8 +49,13 @@ const OtherProfile = () => {
      };
 
      useEffect(() => {
-          setValue(`banglabook-92cb9.web.app/otherProfile/profile/${userData?._id}`)
-     }, [userData])
+          setValue(`https://banglabook-92cb9.web.app/otherProfile/profile/${userData?._id}`);
+          const following = userinfo?.following;
+    
+          const findEmail = following?.find(item => item == userData?.email);
+          setMatchEmail(findEmail);
+         
+     }, [userData, userinfo])
 
      return (
           <div className=" w-full md:mr-10 mr-1 md:px-20 md:-mt-10 ">
@@ -76,7 +82,10 @@ const OtherProfile = () => {
                                         </div>
                                    </div>
                                    <div className=" mt-7 md:mt-0  sm:flex  items-center  gap-1 text-center   ">
-                                        <div onClick={() => handleClick(userData?.email)} className="commonButton   my-3 text-base  md:text-xl cursor-pointer">{active ? active : "Add Friend"}</div>
+                                         {
+                                              matchEmail ? <div className="commonButton   my-3 text-base  md:text-xl ">Friend</div> : <div onClick={() => handleClick(userData?.email)} className="commonButton   my-3 text-base  md:text-xl cursor-pointer">{active ? active : "Add Friend"}</div>
+                                         }
+                                        
                                         <Link to={'/messenger'} className=" commonButton text-base  md:text-xl my-3   cursor-pointer"> Massage</Link>
 
                                    </div>
