@@ -6,7 +6,6 @@ import { IoSettingsOutline } from "react-icons/io5";
 import Container from "../../Component/Container/Container";
 import { AiFillCalendar, AiOutlineStar, AiOutlineUsergroupAdd } from "react-icons/ai";
 import { TiWeatherPartlySunny } from "react-icons/ti";
-import { IoLogoGameControllerB } from "react-icons/io";
 import { FaBars, FaBirthdayCake } from "react-icons/fa";
 import { BsNewspaper } from "react-icons/bs";
 import Footer from "../../Share/Footer/Footer";
@@ -61,7 +60,7 @@ const Main = () => {
                                                   </Link>
                                              </div>
                                              <div className="bg-[#1590CB]  rounded p-4 ">
-                                                  <Link>
+                                                  <Link to={'/massage'}>
                                                        <FaBirthdayCake className="iconSize"></FaBirthdayCake>
                                                   </Link>
                                              </div>
@@ -81,7 +80,7 @@ const Main = () => {
                               <Outlet></Outlet>
                          </div>
                     </div>
-                    <div className="  md:hidden fixed  left-0 right-0 bottom-0  ">
+                    <div className="  md:hidden fixed  mx-2  left-0 right-0 bottom-0  ">
                          <Footer></Footer>
                     </div>
 

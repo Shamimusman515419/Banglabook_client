@@ -21,7 +21,7 @@ const Friends = () => {
                     </div>
                </div>
                <hr className=" p-1 " />
-               <div className=" flex justify-around items-center  py-4">
+               <div className=" flex   gap-4 items-center  py-4">
                     <NavLink  to={'/friends/suggestFriends'} className={({ isActive }) => isActive ? "text-xl    font-semibold text-blue-400" : "text-xl font-semibold"} >Suggest Friend</NavLink>
                     <NavLink to={'/friends/yourFriends'} className={({ isActive }) => isActive ? "text-xl font-semibold text-blue-400" : "text-xl font-semibold"} >Your Friend</NavLink>
                </div>

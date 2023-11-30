@@ -48,7 +48,7 @@ const Home = () => {
                <Story ></Story>
 
                <div className="   grid md:grid-cols-7  gap-5">
-                  <div className=" hidden md:block  z-40  md:col-span-3 lg:col-span-2 ">
+                  <div className=" hidden md:block  z-40  xl:col-span-2 md:col-span-3 ">
                      <div className=" sticky top-16">
 
                         <div className="  p-3  shadow-lg rounded-lg">
@@ -70,14 +70,14 @@ const Home = () => {
 
                      </div>
                   </div>
-                  <div className=" max-w-[3000px]  overflow-y-auto   md:col-span-4 lg:col-span-3">
+                  <div className=" max-w-[3000px]  overflow-y-auto  md:col-span-4  xl:col-span-3 ">
                      <CreatePost></CreatePost>
                      <div className=" mt-3">
 
                         {PostData && PostData.map(item => <Post key={item._id} post={item}></Post>)}
                      </div>
                   </div>
-                  <div className="  sticky top-0  bottom-0  hidden md:block md:col-span-3 lg:col-span-2 ">
+                  <div className="  sticky top-0  bottom-0  hidden xl:block xl:col-span-2  ">
                      <div className=" sticky top-16 ">
                         <HappyBirthday></HappyBirthday>
                         <Gallery></Gallery>

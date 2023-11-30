@@ -44,7 +44,8 @@ const Login = () => {
                          body: JSON.stringify(userInfo),
                     }).then((res) => res.json()).then(data => {
                          verifyUser()
-                         if (data.insertedId) {
+                         console.log(data);
+                         if (data) {
                               toast.success('Successfully Logout!')
                               setLoading(false)
                               navigate('/')

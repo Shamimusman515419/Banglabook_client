@@ -7,7 +7,7 @@ const CreateStory = () => {
      const { user } = useContext(AuthContext)
      return (
           <><Link to={'/createStory'}>
-               <div className=" cursor-pointer h-60 w-full border-2 rounded-lg relative ">
+               <div className=" cursor-pointer h-[180px]  w-[120px]  md:h-60 sm:w-full border-2 rounded-lg relative ">
                     <div className=" relative text-center ">
                          <img className=" relative w-full  h-44 object-cover " src={user?.photoURL
                          } alt="" />

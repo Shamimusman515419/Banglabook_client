@@ -261,11 +261,11 @@ const Post = ({ post }) => {
 
                     <div className=" w-full ">
 
-                         <div className=' text-black text-sm md:text-base font-medium'>  {show ? description : description.slice(0, 80)}    {show ? <span onClick={() => setShow(false)} className="  textColor ml-4 font-semibold cursor-pointer ">Show less</span> : <span onClick={() => setShow(true)} className="  textColor ml-4 font-semibold cursor-pointer"> {description?.length >= 80 ? "Show More" : ""} </span>} </div>
+                         <div className=' text-black text-sm md:text-base px-4 font-medium'>  {show ? description : description.slice(0, 80)}    {show ? <span onClick={() => setShow(false)} className="  textColor ml-4 font-semibold cursor-pointer ">Show less</span> : <span onClick={() => setShow(true)} className="  textColor ml-4 font-semibold cursor-pointer"> {description?.length >= 80 ? "Show More" : ""} </span>} </div>
 
                          <Link className=" cursor-pointer" to={`/post/${_id}`}>
                               {
-                                   post?.video ? <video className="  w-full h-[500px] overflow-hidden my-2 object-cover" ref={videoRef} controls={isPlaying} muted loop ref={videoRef} controls={isPlaying} >   <source src={post?.video} type="video/mp4"></source> </video> : <img className=" w-full max-h-[400px] my-2 object-cover" src={post?.image} alt="" />
+                                   post?.video ? <video className="  w-full h-[500px] overflow-hidden my-2 px-[8px] object-cover" ref={videoRef} controls={isPlaying} muted loop ref={videoRef} controls={isPlaying} >   <source src={post?.video} type="video/mp4"></source> </video> : <img className=" w-full max-h-[400px] my-2 px-1 object-cover" src={post?.image} alt="" />
                               }
                          </Link>
 

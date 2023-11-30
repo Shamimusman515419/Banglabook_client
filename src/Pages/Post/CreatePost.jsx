@@ -136,12 +136,12 @@ export default function CreatePost() {
 
                <div className=" p-3 postShadwo rounded  bg-white ">
                     <h1 className=" text-2xl font-medium my-2 text-[#343131]"> Create Post</h1>
-                    <div className=" px-3 py-1 flex gap-2 items-center ">
+                    <div className=" px-1 md:px-3 py-1 flex gap-2 items-center ">
                          <div>
-                              <img src={user?.photoURL} className=" h-10 w-10 rounded-full" alt="" />
+                              <img src={user?.photoURL} className="  object-container h-10 w-10 rounded-full" alt="" />
                          </div>
                          <div className=" w-full">
-                              <button onClick={() => setShowModal(true)} className=" w-full bg-[#E4E6E8]  rounded-3xl py-1 px-3 "> What's on your mind, {user?.displayName} ?  </button>
+                              <button onClick={() => setShowModal(true)} className=" w-full bg-[#E4E6E8] text-[10px]  sm:text-base md:text-lg  rounded-3xl py-1 px-3 "> What's on your mind, {user?.displayName} ?  </button>
                          </div>
 
                     </div>

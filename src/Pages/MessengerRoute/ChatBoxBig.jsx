@@ -63,7 +63,7 @@ const ChatBoxBig = ({ currentUser, setOpenmessanger }) => {
 
                console.log(YourMassage, FriendMassage);
           }
-           getData();
+          getData();
      }, [user?.email, data, email])
 
 
@@ -92,11 +92,13 @@ const ChatBoxBig = ({ currentUser, setOpenmessanger }) => {
                </div>
                <div className=" overflow-y-auto fixed-bottom h-[75vh]">
                     <div className=" text-center  my-3 flex  flex-col mt-6  justify-center items-center gap-3 ">
-                         <img className=' relative h-24 w-24 rounded-full object-cover' src={image} alt="" />
+                         <Link to={`/otherProfile/profile/${_id}`}>   <img className=' cursor-pointer relative h-24 w-24 rounded-full object-cover' src={image} alt="" />
+                         </Link>
+                        
                          <h1 className=" text-xl font-medium "> {name} </h1>
                          <p>Your New Friend </p>
                     </div>
-                     <hr className="  mx-9 h-[2px] bg-[#038ac9e2]" />
+                    <hr className="  mx-9 h-[2px] bg-[#038ac9e2]" />
 
                     <div>
                          <div className="  gap-2 p-4 w-full">

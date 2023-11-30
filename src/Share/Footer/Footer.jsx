@@ -34,7 +34,7 @@ const Footer = () => {
                               </Link>
                          </div>
                          <div className="bg-[#1590CB]  rounded  p-2  ">
-                              <Link>
+                              <Link to={'/messenger'}>
                                    <FaRegComment className="iconSize  "></FaRegComment>
                               </Link>
                          </div>

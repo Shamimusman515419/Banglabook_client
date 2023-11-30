@@ -60,10 +60,10 @@ const CreateStoryText = () => {
      };
 
      return (
-          <div className=' flex justify-center items-center h-screen w-full'>
+          <div className=' flex justify-center items-center  h-[80vh] w-full'>
 
                <div>
-                    <div className=' bg-[#2453de6a] h-96 w-full md:w-96 flex justify-center items-center ' >
+                    <div className=' bg-[#2453de6a] h-96 w-full md:w-96 flex justify-center rounded-md items-center ' >
                          <div>
                               {
                                    StoryImage ? <> <img className=' h-96  w-full' src={StoryImage} alt="" /> </> : <label htmlFor="file-upload" >
@@ -77,10 +77,10 @@ const CreateStoryText = () => {
                          </div>
                     </div>
                     <div className=' mt-10 flex-wrap flex gap-2 items-center    justify-center md:justify-between '>
-                         <Link className=" text-xl  font-medium hover:bg-[#b4c7d9] bg-[#e0e4e7] px-14 py-1 rounded-lg  text-blue-500" to={'/'}>
+                         <Link className=" text-xl  font-medium hover:bg-[#f43d3d] bg-[#e0e4e7] px-14 py-1 rounded-lg  hover:text-white text-blue-500" to={'/'}>
                               Discard
                          </Link>
-                         <div onClick={handleImageUpload}>
+                         <div className=' ' onClick={handleImageUpload}>
                               <SubmitButton commonLoader={commonLoader} condition={true} text='Share to Story'></SubmitButton>
                          </div>
                     </div>
